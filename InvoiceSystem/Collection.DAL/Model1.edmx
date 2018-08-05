@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="invoicesystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="50" />
+          <Property Name="Invoice_ID" Type="int" Nullable="false" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Cust_No" Type="int" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cust_ID" Type="int" Nullable="false" />
+          <Property Name="CollectDate" Type="date" />
+          <Property Name="IssueDate" Type="date" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="Invoice_No" Type="int" />
+          <Property Name="Act_CollectedDate" Type="date" />
+          <Property Name="Collected" Type="bit" />
+          <Property Name="Suspended" Type="bit" />
+        </EntityType>
+        <EntityType Name="Types">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="User_No" Type="int" />
+          <Property Name="Type_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Comments_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="Invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="Cust_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Types">
+          <End Role="Types" Type="Self.Types" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="invoicesystemModelStoreContainer">
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Types" EntityType="Self.Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comments_Invoice" Association="Self.FK_Comments_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_User" Association="Self.FK_Comments_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Customer" Association="Self.FK_Invoice_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Types" Association="Self.FK_User_Types">
+            <End Role="Types" EntitySet="Types" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="invoicesystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Comment1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Invoice_ID" Type="Int32" Nullable="false" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Invoice" Relationship="Self.FK_Comments_Invoice" FromRole="Comments" ToRole="Invoice" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Comments_User" FromRole="Comments" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Cust_No" Type="Int32" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_Customer" FromRole="Customer" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cust_ID" Type="Int32" Nullable="false" />
+          <Property Name="CollectDate" Type="DateTime" Precision="0" />
+          <Property Name="IssueDate" Type="DateTime" Precision="0" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="Invoice_No" Type="Int32" />
+          <Property Name="Act_CollectedDate" Type="DateTime" Precision="0" />
+          <Property Name="Collected" Type="Boolean" />
+          <Property Name="Suspended" Type="Boolean" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Invoice" FromRole="Invoice" ToRole="Comments" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Invoice_Customer" FromRole="Invoice" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Type1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Types" FromRole="Types" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="User_No" Type="Int32" />
+          <Property Name="Type_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_User" FromRole="User" ToRole="Comments" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_User_Types" FromRole="User" ToRole="Types" />
+        </EntityType>
+        <Association Name="FK_Comments_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="Invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="Cust_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Types">
+          <End Role="Types" Type="Self.Type" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="invoicesystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="Types" EntityType="Self.Type" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Comments_Invoice" Association="Self.FK_Comments_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_User" Association="Self.FK_Comments_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Customer" Association="Self.FK_Invoice_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Types" Association="Self.FK_User_Types">
+            <End Role="Types" EntitySet="Types" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="invoicesystemModelStoreContainer" CdmEntityContainer="invoicesystemEntities">
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="invoicesystemModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comment1" ColumnName="Comment" />
+                <ScalarProperty Name="Invoice_ID" ColumnName="Invoice_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="invoicesystemModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Cust_No" ColumnName="Cust_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="invoicesystemModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Cust_ID" ColumnName="Cust_ID" />
+                <ScalarProperty Name="CollectDate" ColumnName="CollectDate" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Invoice_No" ColumnName="Invoice_No" />
+                <ScalarProperty Name="Act_CollectedDate" ColumnName="Act_CollectedDate" />
+                <ScalarProperty Name="Collected" ColumnName="Collected" />
+                <ScalarProperty Name="Suspended" ColumnName="Suspended" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="invoicesystemModel.Type">
+              <MappingFragment StoreEntitySet="Types">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type1" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="invoicesystemModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="User_No" ColumnName="User_No" />
+                <ScalarProperty Name="Type_ID" ColumnName="Type_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
