@@ -27,5 +27,31 @@ namespace InvoiceSystem.Controllers
 
             return View();
         }
+
+        public ActionResult Invoice()
+        {
+           
+
+            return View();
+        }
+
+        public ActionResult Setup()
+        {
+           
+
+            return View();
+        }
+
+
+        public ActionResult Reports()
+        {
+           
+
+            return View();
+        }
+
+
+
+
     }
 }
