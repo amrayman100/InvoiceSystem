@@ -7175,3 +7175,10 @@ a.list-group-item-danger.active:focus {
 #invoiceList{
     margin-top: 10px;
 }
+.edit {
+    background-color: green;
+}
+
+.delete {
+    background-image: url('~/Content/images/delete.png');
+}
