@@ -1,7 +1,47 @@
-﻿
+﻿@model  Collection.DAL.Customer
 @{
     ViewBag.Title = "Add";
 }
 
-<h2>Add</h2>
+<h2>Add Customer</h2>
 
+@using (Html.BeginForm())
+{
+
+<div class="form-horizontal">
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+        @Html.EditorFor(x => Model.Active)
+</div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Customer" class="btn btn-default" />
+            </div>
+        </div>
+   
+
+
+
+
+
+
+
+}
+@section scripts
+{
+    <script>
+
+
+
+    </script>
+}
