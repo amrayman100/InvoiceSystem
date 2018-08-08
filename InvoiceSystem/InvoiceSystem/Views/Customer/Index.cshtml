@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Collection.DAL.Customer>
+@{
+    ViewBag.Title = "Index";
+}
+
+<label>@Html.ActionLink("Add New Customer", "Add", "Customer")</label>
+
+
+<table class="table table-bordered table-responsive table-hover" id="userdata">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Active </th>
+            <th>Employee Number</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.ID </td>
+        <td> @item.Name</td>
+       
+       @if (item.Active == true)
+       {
+        <td><input type='checkbox' readonly value="true"></td>
+       }
+       else
+       {
+        <td><input type='checkbox' readonly value="false"></td>
+       }
+        <td> @item.Cust_No </td>
+
+        <td>
+            <a href='@Url.Action("Edit", "Customer", new { id = item.ID })'>
+                <img src='~/Content/images/edit.png' />
+            </a>
+        </td>
+        <td>
+            <a href='@Url.Action("Delete", "Customer", new { id = item.ID })'>
+                <img src='~/Content/images/delete.png' />
+            </a>
+        </td>
+
+    </tr>
+}
+</table>

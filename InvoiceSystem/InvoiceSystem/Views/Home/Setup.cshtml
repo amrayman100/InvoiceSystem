@@ -5,10 +5,12 @@
 
 <h2>Add Customer</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("",""))
 {
  
     <div class="form-horizontal">
+
+     
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -34,8 +36,12 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 
 
+=======
+    
+>>>>>>> 87059c047ccb836cce57c4d34f1d30b10c3c5eb2
 
 }
 @section scripts
