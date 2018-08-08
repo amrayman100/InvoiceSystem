@@ -1,4 +1,4 @@
-﻿
+﻿@model InvoiceSystem.ViewModel.InvoiceViewModel
 @{
     ViewBag.Title = "Invoice";
 }
@@ -38,7 +38,84 @@
     <ul class="dropdown-menu"></ul>
 </div>
 
-  <center>
+<center>
     <button id="btn1" type="button" onclick="search()" class="btn btn-default">Search</button>
 </center>
 
+<div class="add">
+    <a href='@Url.Action("Reports", "Home")'>
+        <img src="~/Content/images/add2.png" />
+        Add Invoice
+    </a>
+</div>
+
+<div class="panel panel-primary" id="invoiceList">
+    <div class="panel-heading">
+        Invoices
+    </div>   <!--en dof panel-heading -->
+    <div class="panel-body">
+        <table class="table table-bordered" id="invoiceTable">
+            <thead>
+                <tr>
+                    <th>Invoice No</th>
+                    <th>Issue Date</th>
+                    <th>Collection Date</th>
+                    <th>Actual Collection Date</th>
+                    <th>Customer</th>
+                    <th>Amount</th>
+                    <th>Collected</th>
+                    <th>Suspended</th>
+                    <th>Comment</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Invoices)
+                {
+                <tr>
+
+                    <td>@item.InvoiceNo </td>
+
+                    <td> @item.IssueDate</td>
+
+                    <td>@item.CollectionDate  </td>
+
+                    <td> @item.ActualCollDate </td>
+
+                    <td>@item.Customer </td>
+
+                    <td> @item.Amount </td>
+
+                    <td><input type='checkbox'></td>
+
+                    <td><input type='checkbox'></td>
+
+                    <td><button id='btn1' type='button' class='btn btn-default'>Comment</button></td>
+
+                    <td>
+                        <a href='@Url.Action("Editinvoice", "Home",new { id = item.InvoiceNo })'>
+                            <img src='~/Content/images/edit.png' />
+                            </a>
+                    </td>
+                    <td>
+                        <img src='~/Content/images/delete.png' />
+                    </td>
+
+
+                </tr>
+                }
+            </tbody>
+        </table> 
+    </div> <!--end of Panel-body -->
+</div> <!--end of Panel -->
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            //Fetch From API Here
+        });
+    </script>
+}

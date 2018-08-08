@@ -1,4 +1,6 @@
-﻿using System;
+﻿using InvoiceSystem.Models;
+using InvoiceSystem.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,9 +32,20 @@ namespace InvoiceSystem.Controllers
 
         public ActionResult Invoice()
         {
-           
 
-            return View();
+            var invoices = new List<DummyInvoice>
+            {
+               new DummyInvoice{InvoiceNo = 1 , IssueDate = "2/2/2015" , CollectionDate = "2/9/2015",ActualCollDate = "2/10/2015", Customer = "alfa lab", Amount = 1000 },
+               new DummyInvoice{InvoiceNo = 2 , IssueDate = "5/8/2018" , CollectionDate = "10/10/2018",ActualCollDate = "10/10/2018", Customer = "el borg", Amount = 200 }
+
+            };
+
+            InvoiceViewModel v = new InvoiceViewModel
+            {
+                Invoices = invoices
+            };
+
+            return View(v);
         }
 
         public ActionResult Setup()
@@ -48,6 +61,11 @@ namespace InvoiceSystem.Controllers
            
 
             return View();
+        }
+
+        public ActionResult EditInvoice(int id)
+        {
+            return View(id);
         }
 
 
