@@ -282,6 +282,7 @@
     <Content Include="Views\Home\Setup.cshtml" />
     <Content Include="Views\Home\Invoice.cshtml" />
     <Content Include="Views\Home\Reports.cshtml" />
+    <Content Include="Views\Home\EditInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

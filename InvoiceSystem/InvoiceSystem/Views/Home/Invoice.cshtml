@@ -45,6 +45,7 @@
 <div class="add">
     <a href='@Url.Action("Reports", "Home")'>
         <img src="~/Content/images/add2.png" />
+        Add Invoice
     </a>
 </div>
 
@@ -93,7 +94,9 @@
                     <td><button id='btn1' type='button' class='btn btn-default'>Comment</button></td>
 
                     <td>
-                        <img src='~/Content/images/edit.png' />
+                        <a href='@Url.Action("Editinvoice", "Home",new { id = item.InvoiceNo })'>
+                            <img src='~/Content/images/edit.png' />
+                            </a>
                     </td>
                     <td>
                         <img src='~/Content/images/delete.png' />

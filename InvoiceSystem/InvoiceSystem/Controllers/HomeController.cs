@@ -63,6 +63,11 @@ namespace InvoiceSystem.Controllers
             return View();
         }
 
+        public ActionResult EditInvoice(int id)
+        {
+            return View(id);
+        }
+
 
 
 

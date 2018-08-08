@@ -1,0 +1,52 @@
+﻿@model int
+@{
+    ViewBag.Title = "EditInvoice";
+}
+
+<h2>Edit Invoice</h2>
+
+@{
+    var id = ViewContext.RouteData.Values["id"];
+}
+
+@id
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Invoice no</label>
+            <input type="text" class="form-control box" placeholder="@id" id="fname" readonly>
+        </div>
+
+        <div class="form-group">
+            <label class="input">Issue Date:</label>
+            <input type="date" class="form-control box" id="lname">
+        </div>
+    </div>
+
+
+    <div class="col-md-6">
+
+        <div class="form-group">
+            <label class="input">Amount:</label>
+            <input type="text" class="form-control box">
+
+        </div>
+
+        <div class="form-group">
+            <label class="input">Collections Date:</label>
+            <input type="date" class="form-control box" id="lname">
+        </div>
+
+    </div>
+
+    <div class="dropdown">
+        <center>
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                Customers
+                <span class="caret"></span>
+            </button>
+        </center>
+        <ul class="dropdown-menu"></ul>
+    </div>
+</div>
