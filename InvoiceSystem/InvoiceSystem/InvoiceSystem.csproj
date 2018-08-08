@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -284,6 +285,8 @@
     <Content Include="Views\Home\Invoice.cshtml" />
     <Content Include="Views\Home\Reports.cshtml" />
     <Content Include="Views\Home\EditInvoice.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -302,6 +305,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Collection.DAL\Collection.DAL.csproj">
+      <Project>{f85cb8fa-c408-458e-bb25-b17732bf0e69}</Project>
+      <Name>Collection.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Collection.DSL\Collection.DSL.csproj">
       <Project>{bda8f702-5a77-4786-9774-a2f941c27c62}</Project>
       <Name>Collection.DSL</Name>
