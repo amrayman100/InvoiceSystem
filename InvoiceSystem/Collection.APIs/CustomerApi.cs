@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Collection.DSL;
+using Collection.DAL;
+using System.Net.Http;
+using System.Net;
+
 namespace Collection.APIs
 {
     public class CustomerApi : ApiController
@@ -19,13 +23,15 @@ namespace Collection.APIs
         }
 
         [System.Web.Http.HttpPost]
-        public IHttpActionResult addCustomer()
+        public HttpResponseMessage addCustomer(Customer customer)
         {
             if (!ModelState.IsValid)
             {
-
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest);
             }
-            return Ok();
+            c.InsertCustomer(customer);
+            c.CommitCustomers();
+            return this.Request.CreateResponse(HttpStatusCode.OK);
         }
 
     }

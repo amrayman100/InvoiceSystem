@@ -65,6 +65,16 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Collection.DAL\Collection.DAL.csproj">
+      <Project>{f85cb8fa-c408-458e-bb25-b17732bf0e69}</Project>
+      <Name>Collection.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Collection.DSL\Collection.DSL.csproj">
+      <Project>{bda8f702-5a77-4786-9774-a2f941c27c62}</Project>
+      <Name>Collection.DSL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
