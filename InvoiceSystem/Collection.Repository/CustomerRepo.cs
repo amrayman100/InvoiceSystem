@@ -28,6 +28,7 @@ namespace Collection.Repository
         public void InsertCustomer(Customer customer)
         {
             context.Customers.Add(customer);
+            context.SaveChanges();
         }
 
         public void DeleteCustomer(int id)
