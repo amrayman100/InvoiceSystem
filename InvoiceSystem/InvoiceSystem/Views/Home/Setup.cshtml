@@ -3,5 +3,23 @@
     ViewBag.Title = "Setup";
 }
 
-<h2>Setup</h2>
+<h2>Add Customer</h2>
+
+<div class="row">
+
+    <div class="form-group">
+        <label>Customer Name</label>
+        <input type="text" class="form-control box" id="Name">
+    </div>
+
+    <div class="form-group">
+        <label class="input">Active:</label>
+        <input type='checkbox' class="form-control box" id="active">
+    </div>
+
+    <center>
+        <button id="btn1" type="button" onclick="addCustomer()" class="btn btn-default">Add</button>
+    </center>
+
+</div>  
 
