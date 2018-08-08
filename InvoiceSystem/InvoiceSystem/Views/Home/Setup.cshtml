@@ -1,4 +1,4 @@
-﻿@model Collection.DSL.CustomerDSL
+﻿@model  Collection.DAL.Customer
 @{
     ViewBag.Title = "Setup";
 }
@@ -7,24 +7,7 @@
 
 @using (Html.BeginForm())
 {
-    <!--
-<div class="row">
-
-    <div class="form-group">
-        <label>Customer Name</label>
-        <input type="text" class="form-control box" id="Name">
-    </div>
-
-    <div class="form-group">
-        <label class="input" id="Active">Active:</label>
-        <input type='checkbox' id="active">
-    </div>
-
-    <center>
-        <button id="add" type="button" onclick="add()" class="btn btn-default">Add</button>
-    </center>
-        -->
-
+ 
     <div class="form-horizontal">
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -34,10 +17,13 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.CheckBox(model => model.Active)
+            @Html.LabelFor(model => model.Active, value = "true", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div cla0ss="col-md-10">
+                @Html.CheckBoxFor(model => model.Active, new { @checked = "checked" })
             </div>
+
+         
+            
         </div>
 
 
@@ -49,7 +35,7 @@
         </div>
     </div>
 
-</div>
+
 
 }
 @section scripts
