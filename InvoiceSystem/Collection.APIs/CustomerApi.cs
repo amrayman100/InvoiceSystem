@@ -11,11 +11,16 @@ using System.Net.Http;
 using System.Net;
 
 namespace Collection.APIs
+    
 {
+    [AllowAnonymous]
+    [RoutePrefix("CustomerAPI/Customers")]
     public class CustomerApi : ApiController
     {
         CustomerDSL c = new CustomerDSL();
         [System.Web.Http.HttpGet]
+        [AllowAnonymous]
+        [Route("GetAllCustomers")]
         public IHttpActionResult GetAllCustomers()
         {
 
@@ -23,6 +28,7 @@ namespace Collection.APIs
         }
 
         [System.Web.Http.HttpPost]
+        [Route("addCustomer")]
         public HttpResponseMessage addCustomer(Customer customer)
         {
             if (!ModelState.IsValid)

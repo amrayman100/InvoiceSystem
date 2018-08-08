@@ -5,14 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Collection.DSL;
 
 namespace InvoiceSystem.Controllers
 {
 
     public class HomeController : Controller
     {
+        CustomerDSL cust = new CustomerDSL();
         public ActionResult Index()
         {
+           
             return View();
         }
 
@@ -51,7 +54,6 @@ namespace InvoiceSystem.Controllers
         public ActionResult Setup()
         {
            
-
             return View();
         }
 

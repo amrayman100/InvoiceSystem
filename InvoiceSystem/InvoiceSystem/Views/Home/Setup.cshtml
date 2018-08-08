@@ -1,4 +1,4 @@
-﻿
+﻿@model Collection.DSL.CustomerDSL
 @{
     ViewBag.Title = "Setup";
 }
@@ -18,41 +18,17 @@
     </div>
 
     <center>
-        <button id="add" type="button" onclick="addCustomer()" class="btn btn-default">Add</button>
+        <button id="add" type="button" onclick="add()" class="btn btn-default">Add</button>
     </center>
 
 </div>
+
 
 @section scripts
 {
     <script>
       
 
-        $(document).ready(function () {
-            $("#add").click(function (e) {
-                e.preventDefault();
-                var apiurl = "~/InvoiceSystem/Collection.APIs/CustomerApi/addCustomer";
-                var apiurl
-                var data = {
-                    Name: $("#Name").val().trim(),
-                    Active: $("#Add").attr('checked') 
-                   
-                }
-                $.ajax({
-                    url: apiurl,
-                    type: 'POST',
-                    dataType: 'json',
-                    data: data,
-                    success: function (d) {
-                        alert("Saved Successfully");
-                        document.getElementById("postform").reset();
-                    },
-                    error: function () {
-                        alert("Error please try again");
-                    }
-                });
-            });
-        });  
-
+   
     </script>
 }
