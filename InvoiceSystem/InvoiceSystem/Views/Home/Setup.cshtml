@@ -13,7 +13,7 @@
     </div>
 
     <div class="form-group">
-        <label class="input">Active:</label>
+        <label class="input" id="Active">Active:</label>
         <input type='checkbox' id="active">
     </div>
 
@@ -26,10 +26,33 @@
 @section scripts
 {
     <script>
-        $("#add").click(function () {
-            alert("API");
-        })
+      
 
+        $(document).ready(function () {
+            $("#add").click(function (e) {
+                e.preventDefault();
+                var apiurl = "~/InvoiceSystem/Collection.APIs/CustomerApi/addCustomer";
+                var apiurl
+                var data = {
+                    Name: $("#Name").val().trim(),
+                    Active: $("#Add").attr('checked') 
+                   
+                }
+                $.ajax({
+                    url: apiurl,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: data,
+                    success: function (d) {
+                        alert("Saved Successfully");
+                        document.getElementById("postform").reset();
+                    },
+                    error: function () {
+                        alert("Error please try again");
+                    }
+                });
+            });
+        });  
 
     </script>
 }
