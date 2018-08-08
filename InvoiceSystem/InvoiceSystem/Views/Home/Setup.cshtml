@@ -14,12 +14,22 @@
 
     <div class="form-group">
         <label class="input">Active:</label>
-        <input type='checkbox' class="form-control box" id="active">
+        <input type='checkbox' id="active">
     </div>
 
     <center>
-        <button id="btn1" type="button" onclick="addCustomer()" class="btn btn-default">Add</button>
+        <button id="add" type="button" onclick="addCustomer()" class="btn btn-default">Add</button>
     </center>
 
-</div>  
+</div>
 
+@section scripts
+{
+    <script>
+        $("#add").click(function () {
+            alert("API");
+        })
+
+
+    </script>
+}
