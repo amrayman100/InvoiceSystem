@@ -302,9 +302,9 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Collection.APIs\Collection.APIs.csproj">
-      <Project>{685217de-0014-4a01-99a4-c0abf416719c}</Project>
-      <Name>Collection.APIs</Name>
+    <ProjectReference Include="..\Collection.DSL\Collection.DSL.csproj">
+      <Project>{bda8f702-5a77-4786-9774-a2f941c27c62}</Project>
+      <Name>Collection.DSL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

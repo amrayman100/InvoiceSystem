@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Collection.DSL;
+using Collection.DAL;
 
 namespace InvoiceSystem.Controllers
 {
@@ -51,12 +52,21 @@ namespace InvoiceSystem.Controllers
             return View(v);
         }
 
+        [HttpGet]
         public ActionResult Setup()
         {
            
             return View();
         }
-
+        [HttpPost]
+        public ActionResult Setup(Customer c)
+        {
+            if(c!=null)
+            {
+                cust.InsertCustomer(c);
+            }
+            return View();
+        }
 
         public ActionResult Reports()
         {

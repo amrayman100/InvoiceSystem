@@ -25,6 +25,7 @@ namespace Collection.DSL
 
         public void InsertCustomer(Customer customer)
         {
+
             repo.InsertCustomer(customer);
         }
         public void Delete(int id)
