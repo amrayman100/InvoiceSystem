@@ -32,6 +32,36 @@ namespace InvoiceSystem.Controllers
             if (c != null)
             {
                 cust.InsertCustomer(c);
+                cust.CommitCustomers();
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delete(int id)
+        {
+
+            if (id > 0)
+            {
+                cust.Delete(id);
+                cust.CommitCustomers();
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            return View(cust.GetCustomerByID(id));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Customer c)
+        {
+            if (c != null)
+            {
+                cust.UpdateCustomer(c);
+                cust.CommitCustomers();
+                return RedirectToAction("Index");
             }
             return View();
         }

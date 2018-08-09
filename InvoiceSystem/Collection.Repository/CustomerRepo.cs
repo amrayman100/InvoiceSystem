@@ -28,18 +28,20 @@ namespace Collection.Repository
         public void InsertCustomer(Customer customer)
         {
             context.Customers.Add(customer);
-            context.SaveChanges();
+            
         }
 
         public void DeleteCustomer(int id)
         {
             Customer customer = context.Customers.Find(id);
             context.Customers.Remove(customer);
+            
         }
 
         public void UpdateCustomer(Customer customer)
         {
             context.Entry(customer).State = EntityState.Modified;
+           
         }
 
         public void Commit()

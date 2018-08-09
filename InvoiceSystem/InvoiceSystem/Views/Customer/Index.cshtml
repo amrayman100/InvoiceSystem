@@ -24,25 +24,26 @@
         <td>@item.ID </td>
         <td> @item.Name</td>
        
-       @if (item.Active == true)
+       @if (@item.Active == true)
        {
-        <td><input type='checkbox' readonly value="true"></td>
+        <td><input type='checkbox'  onclick="return false" checked></td>
        }
        else
        {
-        <td><input type='checkbox' readonly value="false"></td>
+        <td><input type='checkbox'  onclick="return false"></td>
        }
         <td> @item.Cust_No </td>
 
         <td>
-            <a href='@Url.Action("Edit", "Customer", new { id = item.ID })'>
+            <a href='@Url.Action("Edit", "Customer", new { id = @item.ID })'>
                 <img src='~/Content/images/edit.png' />
             </a>
         </td>
         <td>
-            <a href='@Url.Action("Delete", "Customer", new { id = item.ID })'>
+            <label>@Html.ActionLink("Delete", "Delete", "Customer", new { id = @item.ID }, new { onClick = "return confirm('Are You Sure You want to Delete This');" })</label>
+
                 <img src='~/Content/images/delete.png' />
-            </a>
+           
         </td>
 
     </tr>

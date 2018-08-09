@@ -198,6 +198,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -287,9 +288,11 @@
     <Content Include="Views\Home\EditInvoice.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\Add.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Invoice\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
