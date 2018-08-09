@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Collection.DSL;
+using Collection.DAL;
+using InvoiceSystem.ViewModel;
 
 namespace InvoiceSystem.Controllers
 {
@@ -10,8 +13,22 @@ namespace InvoiceSystem.Controllers
     {
         // GET: Invoice
         public ActionResult Index()
+
         {
-            return View();
+            Customer c1 = new Customer { Cust_No = 1, Name = "el borg" };
+            Customer c2 = new Customer { Cust_No = 2, Name = "alfa" };
+            var invoices = new List<Invoice>
+            {
+               new Invoice{ID = 1 , Cust_ID = 1 , Act_CollectedDate = new DateTime(2017,2,8), Amount = 2000, Collected = true , Invoice_No = 12 , Suspended = false , CollectDate = new DateTime(2017,2,8), IssueDate = new DateTime(2017,2,8),Customer = c1},
+               new Invoice{ID = 2 , Cust_ID = 2 , Act_CollectedDate = new DateTime(2017,2,8), Amount = 2000, Collected = true , Invoice_No = 13 , Suspended = false , CollectDate = new DateTime(2017,2,8), IssueDate = new DateTime(2017,2,8), Customer = c2},
+
+            };
+            InvoiceViewModel v = new InvoiceViewModel
+            {
+                Invoices = invoices
+            };
+            return View(v);
+            
         }
     }
 }

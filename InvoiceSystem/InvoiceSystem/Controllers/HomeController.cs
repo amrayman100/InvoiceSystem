@@ -38,10 +38,10 @@ namespace InvoiceSystem.Controllers
         public ActionResult Invoice()
         {
 
-            var invoices = new List<DummyInvoice>
+            var invoices = new List<Invoice>
             {
-               new DummyInvoice{InvoiceNo = 1 , IssueDate = "2/2/2015" , CollectionDate = "2/9/2015",ActualCollDate = "2/10/2015", Customer = "alfa lab", Amount = 1000 },
-               new DummyInvoice{InvoiceNo = 2 , IssueDate = "5/8/2018" , CollectionDate = "10/10/2018",ActualCollDate = "10/10/2018", Customer = "el borg", Amount = 200 }
+               new Invoice(),
+               new Invoice()
 
             };
 
