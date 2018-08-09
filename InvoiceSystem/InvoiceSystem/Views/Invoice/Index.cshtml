@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Collection.DAL.Invoice>
 @{
         ViewBag.Title = "Index";
+<<<<<<< HEAD
 }
 
     <div class="add">
@@ -70,6 +71,109 @@
                         }
 
                         <td><button id='btn1' type='button' class='btn btn-default'>Comment</button></td>
+=======
+    }
+
+    <h2>Invoice</h2>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="IDateTo" class="input">Issue Date From:</label>
+                    <input type="date" class="form-control box" id="IDateTo">
+
+                </div>
+                <div class="form-group">
+                    <label class="input" for="IDateFrom" >Issue Date to:</label>
+                    <input type="date" class="form-control box" id="IDateFrom">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" >
+                    <label class="input" for = "CDateTo" >Collection Date From:</label>
+                    <input type="date" class="form-control box" id="CDateTo">
+
+                </div>
+                <div class="form-group">
+                    <label class="input" for = "CDateFrom" >Collection Date to:</label>
+                    <input type="date" class="form-control box" id="CDateFrom">
+
+                </div>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="submit" data-toggle="dropdown">
+                Customers
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu"></ul>
+        </div>
+    </form>
+
+        <center>
+            <button id="btn1" type="button" onclick="search()" class="btn btn-default">Search</button>
+        </center>
+
+        <div class="add">
+            <a href='@Url.Action("Reports", "Home")'>
+                <img src="~/Content/images/add2.png" />
+                Add Invoice
+            </a>
+        </div>
+
+        <div class="panel panel-primary" id="invoiceList">
+            <div class="panel-heading">
+                Invoices
+            </div>   <!--en dof panel-heading -->
+            <div class="panel-body">
+                <table class="table table-bordered" id="invoiceTable">
+                    <thead>
+                        <tr>
+                            <th>Invoice No</th>
+                            <th>Issue Date</th>
+                            <th>Collection Date</th>
+                            <th>Actual Collection Date</th>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                            <th>Collected</th>
+                            <th>Suspended</th>
+                            <th>Comment</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Invoices)
+                        {
+                            <tr>
+
+                                <td>@item.Invoice_No </td>
+
+                                <td> @item.IssueDate</td>
+
+                                <td>@item.CollectDate.ToString()  </td>
+
+                                <td> @item.Act_CollectedDate.GetValueOrDefault() </td>
+
+                                <td>@item.Customer.Name </td>
+
+                                <td> @item.Amount </td>
+
+                                <td><input type='checkbox'></td>
+
+                                <td><input type='checkbox'></td>
+
+                                <td><button id='btn1' type='button' class='btn btn-default'>Comment</button></td>
+
+                                <td>
+                                    <a href='@Url.Action("Editinvoice", "Home",new { id = item.Invoice_No })'>
+                                        <img src='~/Content/images/edit.png' />
+                                    </a>
+                                </td>
+                                <td>
+                                    <img src='~/Content/images/delete.png' />
+                                </td>
+
 
                         <td>
                             <a href='@Url.Action("Edit", "Invoice",new { id = @item.ID })'>
@@ -81,10 +185,45 @@
                             <img src='~/Content/images/delete.png' />
                         </td>
 
-
                     </tr>
                 }
             </tbody>
         </table>
     </div> <!--end of Panel-body -->
 </div> <!--end of Panel -->
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div> <!--end of Panel-body -->
+        </div> <!--end of Panel -->
+
+        @section scripts
+{
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                //Fetch From API Here
+            });
+
+            function search() {
+
+
+                 @{
+                     if (IsPost) {
+                     var a = Request.Form["IDateTo"];
+                     var b = Request.Form["IDateFrom"];
+
+                     <text>
+                     Company Name: @a<br />
+                     Contact Name: @b<br />
+                     </text>
+                 }
+
+                     }
+            }
+
+        </script>
+        }
+>>>>>>> ab2263c532e6d7ddf27bba5ffd278d1ddf7ff99c
