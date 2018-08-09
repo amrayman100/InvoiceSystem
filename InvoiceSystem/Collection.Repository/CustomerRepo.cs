@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Collection.DAL;
-//using InvoiceSystem.Models;
 using System.Data.Entity;
 
 namespace Collection.Repository
