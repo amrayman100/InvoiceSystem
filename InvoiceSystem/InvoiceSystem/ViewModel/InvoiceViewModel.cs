@@ -9,6 +9,6 @@ namespace InvoiceSystem.ViewModel
 {
     public class InvoiceViewModel
     {
-        public List<Invoice> Invoices { get; set; }
+        public IEnumerable<Invoice> Invoices { get; set; }
     }
 }
