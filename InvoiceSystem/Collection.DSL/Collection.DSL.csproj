@@ -43,6 +43,7 @@
     <Compile Include="CustomerDSL.cs" />
     <Compile Include="InvoiceDSL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserDSL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Collection.DAL\Collection.DAL.csproj">
