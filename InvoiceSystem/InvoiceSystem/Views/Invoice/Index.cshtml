@@ -1,49 +1,7 @@
-﻿@model InvoiceSystem.ViewModel.InvoiceViewModel
-
-
+﻿@model IEnumerable<Collection.DAL.Invoice>
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Invoice</h2>
-<form method="post">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="IDateTo" class="input">Issue Date From:</label>
-                <input type="date" class="form-control box" id="IDateTo">
-
-            </div>
-            <div class="form-group">
-                <label class="input" for="IDateFrom">Issue Date to:</label>
-                <input type="date" class="form-control box" id="IDateFrom">
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="input" for="CDateTo">Collection Date From:</label>
-                <input type="date" class="form-control box" id="CDateTo">
-
-            </div>
-            <div class="form-group">
-                <label class="input" for="CDateFrom">Collection Date to:</label>
-                <input type="date" class="form-control box" id="CDateFrom">
-
-            </div>
-        </div>
-    </div>
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="submit" data-toggle="dropdown">
-            Customers
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu"></ul>
-    </div>
-</form>
-
-<center>
-    <button id="btn1" type="button" onclick="search()" class="btn btn-default">Search</button>
-</center>
 
 <div class="add">
     <a href='@Url.Action("Reports", "Home")'>
@@ -56,6 +14,9 @@
     <div class="panel-heading">
         Invoices
     </div>   <!--en dof panel-heading -->
+
+    <label>@Html.ActionLink("Add New Customer", "Add", "Invoice")</label>
+
     <div class="panel-body">
         <table class="table table-bordered" id="invoiceTable">
             <thead>
@@ -74,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Invoices)
+                @foreach (var item in Model)
                 {
                     <tr>
 
@@ -90,18 +51,33 @@
 
                         <td> @item.Amount </td>
 
-                        <td><input type='checkbox'></td>
+                        @if (@item.Collected == true)
+                        {
+                            <td><input type='checkbox' onclick="return false" checked></td>
+                        }
+                        else
+                        {
+                            <td><input type='checkbox' onclick="return false"></td>
+                        }
 
-                        <td><input type='checkbox'></td>
+                        @if (@item.Suspended == true)
+                        {
+                            <td><input type='checkbox' onclick="return false" checked></td>
+                        }
+                        else
+                        {
+                            <td><input type='checkbox' onclick="return false"></td>
+                        }
 
                         <td><button id='btn1' type='button' class='btn btn-default'>Comment</button></td>
 
                         <td>
-                            <a href='@Url.Action("Editinvoice", "Home",new { id = item.Invoice_No })'>
+                            <a href='@Url.Action("Edit", "Invoice",new { id = @item.ID })'>
                                 <img src='~/Content/images/edit.png' />
                             </a>
                         </td>
                         <td>
+                            <label>@Html.ActionLink("Delete", "Delete", "Invoice", new { id = @item.ID }, new { onClick = "return confirm('Are You Sure You want to Delete This');" })</label>
                             <img src='~/Content/images/delete.png' />
                         </td>
 
@@ -112,31 +88,3 @@
         </table>
     </div> <!--end of Panel-body -->
 </div> <!--end of Panel -->
-
-@section scripts
-{
-    <script type="text/javascript">
-            $(document).ready(function () {
-
-                //Fetch From API Here
-            });
-
-            function search() {
-
-
-                 @{
-                     if (IsPost) {
-                     var a = Request.Form["IDateTo"];
-                     var b = Request.Form["IDateFrom"];
-
-                     <text>
-                     Company Name: @a<br />
-                     Contact Name: @b<br />
-                     </text>
-                 }
-
-                     }
-            }
-
-    </script>
-}

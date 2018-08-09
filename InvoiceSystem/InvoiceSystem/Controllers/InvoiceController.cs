@@ -24,14 +24,17 @@ namespace InvoiceSystem.Controllers
                new Invoice{ID = 2 , Cust_ID = 2 , Act_CollectedDate = new DateTime(2017,2,8), Amount = 2000, Collected = true , Invoice_No = 13 , Suspended = false , CollectDate = new DateTime(2017,2,8), IssueDate = new DateTime(2017,2,8), Customer = c2},
 
             };*/
-
             return View(i.GetInvoices());
         }
 
         public ActionResult Search()
         {
 
-            return View();
+            var invoices = i.GetInvoices();
+
+            InvoiceViewModel v = new InvoiceViewModel { Invoices = invoices };
+
+            return View(v);
         }
         [HttpGet]
         public ActionResult Add()
