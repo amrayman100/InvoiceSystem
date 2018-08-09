@@ -10,7 +10,7 @@ namespace Collection.DSL
 {
     public class InvoiceDSL
     {
-        InvoiceRepo repo = new Repository.InvoiceRepo();
+        InvoiceRepo repo = new InvoiceRepo();
         public IEnumerable<Invoice> GetInvoices()
         {
             var list = repo.GetInvoices();
