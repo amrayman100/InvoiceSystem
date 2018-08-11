@@ -13,6 +13,7 @@ namespace InvoiceSystem.Controllers
     {
         // GET: Invoice
         InvoiceDSL i = new InvoiceDSL();
+        CustomerDSL cust = new CustomerDSL();
         public ActionResult Index()
         {
 
@@ -39,15 +40,17 @@ namespace InvoiceSystem.Controllers
         [HttpGet]
         public ActionResult Add()
         {
+            ViewData["Customer_List"] = cust.GetCustomers();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Add(Invoice invoice)
+        public ActionResult Add(Invoice invoice,int ss)
         {
 
             if (invoice != null)
             {
+                invoice.Cust_ID = ss;
                 i.InsertInvoice(invoice);
                 i.CommitInvoices();
             }
@@ -64,6 +67,27 @@ namespace InvoiceSystem.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            ViewData["Customer_List"] = cust.GetCustomers();
+            return View(i.GetInvoiceByID(id));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Invoice invoice)
+        {
+            if (invoice != null)
+            {
+             
+                i.UpdateInvoice(invoice);
+                i.CommitInvoices();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
     }
         
 }

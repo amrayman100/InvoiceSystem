@@ -15,13 +15,14 @@ namespace InvoiceSystem.Controllers
         CustomerDSL cust = new CustomerDSL();
         public ActionResult Index()
         {
-           
-            return View(cust.GetCustomers());
+            var list = cust.GetCustomers();
+            return View(list);
         }
 
         [HttpGet]
         public ActionResult Add()
         {
+            
             return View();
         }
 

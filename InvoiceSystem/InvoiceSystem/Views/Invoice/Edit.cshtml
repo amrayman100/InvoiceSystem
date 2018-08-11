@@ -1,0 +1,97 @@
+﻿@model Collection.DAL.Invoice
+
+@{
+    ViewBag.Title = "Edit";
+    List<Collection.DAL.Customer> clist = ViewData["Customer_List"] as List<Collection.DAL.Customer>;
+
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Edit Customer</h4>
+        <hr />
+    
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Invoice_No, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Invoice_No, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Invoice_No, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IssueDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IssueDate, new { htmlAttributes =  new { @class = "datefield", type = "date" } })
+                @Html.ValidationMessageFor(model => model.IssueDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(
+    model => model.Cust_ID, // Specifies where to store selected country Id
+                      // It needs to be null for the default selection to work!
+
+    new SelectList(clist, // IEnumerable<Country>, contains all countries loaded from a database
+                   "ID",   // Use Country.Id as a data source for the values of dropdown items
+                   "Name" // Use Country.Name as a data source for the text of dropdown items
+                    // Specifies Australia (which has ID of 13) as the element selected by default
+                   ),
+
+    // Text of option that prompts user to select
+    "- Please select Customer -"
+)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CollectDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CollectDate, new { htmlAttributes = new { @class = "datefield", type = "date" } })
+                @Html.ValidationMessageFor(model => model.CollectDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Collected, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Collected, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Collected, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Suspended, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Suspended, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Suspended, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+     
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

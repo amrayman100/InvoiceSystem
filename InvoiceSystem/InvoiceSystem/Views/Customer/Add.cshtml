@@ -21,8 +21,10 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Active)
-        </div>
+            @Html.DropDownListFor(model => model.Active, new List<SelectListItem>
+                    { new SelectListItem{Text="Active", Value="True" },
+                     new SelectListItem{Text="Non active", Value="False"}}, "Select One")  
+          </div>
     </div>
 
       

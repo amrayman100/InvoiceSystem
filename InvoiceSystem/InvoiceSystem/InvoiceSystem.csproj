@@ -292,6 +292,7 @@
     <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\Invoice\Search.cshtml" />
     <Content Include="Views\Invoice\Add.cshtml" />
+    <Content Include="Views\Invoice\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

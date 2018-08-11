@@ -21,7 +21,9 @@ namespace Collection.Repository
         }
         public Customer GetCustomerByID(int id)
         {
-            return context.Customers.Find(id);
+            var z = context.Customers.SingleOrDefault(m => m.ID == id);
+
+            return z;   
         }
 
         public void InsertCustomer(Customer customer)

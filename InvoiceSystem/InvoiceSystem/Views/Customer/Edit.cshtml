@@ -14,7 +14,7 @@
         <h4>Customer</h4>
         <hr />
         <div class="form-group">
-            <label>Invoice no</label>
+            <label>Customer ID</label>
             <input type="text" class="form-control box" placeholder="@Model.ID" id="fname" readonly>
         </div>
         <div class="form-group">
@@ -36,7 +36,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Active, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.Active, new List<SelectListItem>
+                    { new SelectListItem{Text="Active", Value="True" },
+                     new SelectListItem{Text="Non active", Value="False"}}, "Select One")
                 @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
             </div>
         </div>
