@@ -38,7 +38,7 @@ namespace Collection.DSL
             return(repo.UpdateUser(user));
         }
 
-        public bool userlogin(User user)
+        public int userlogin(User user)
         {
             return (repo.login(user));
         }

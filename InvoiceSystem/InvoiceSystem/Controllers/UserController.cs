@@ -83,11 +83,11 @@ namespace InvoiceSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(User objUser)
         {
-
-            if (iuser.userlogin(objUser))
+            int id = iuser.userlogin(objUser);
+            if (id > 0)
             {
-                Session["UserID"] = objUser.ID;
-
+                Session["UserID"] = id;
+                Session["UserName"] = objUser.UserName;
                 return RedirectToAction("Index");
             }
 

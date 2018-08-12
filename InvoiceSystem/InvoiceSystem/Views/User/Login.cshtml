@@ -10,10 +10,16 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Login</h4>
-        <hr />
-        
+    
 
+        <h5>Do not have account ??</h5>
+        <label>@Html.ActionLink("Register", "Add", "User")</label>
+
+        <br />
+        <hr />
+      
+        
+        <h4>User Login</h4>
         <div class="form-group">
             @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -43,6 +49,7 @@
             </div>
         </div>
     </div>
+  
 }
 
 <div>

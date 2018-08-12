@@ -126,7 +126,7 @@
                 {
                     <tr>
 
-                        <td>@item.User.Name</td>
+                        <td>@item.User.UserName</td>
                         <td>@item.Comment1</td>
                         <td>@item.Date</td>
                         <td><label>@Html.ActionLink("Delete", "DeleteComment", "Invoice", new { id = @item.ID }, new { onClick = "return confirm('Are You Sure You want to Delete This'); " })</label></td>

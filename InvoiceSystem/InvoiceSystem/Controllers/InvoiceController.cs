@@ -16,10 +16,8 @@ namespace InvoiceSystem.Controllers
         // GET: Invoice
         InvoiceDSL i = new InvoiceDSL();
         CustomerDSL c = new CustomerDSL();
-<<<<<<< HEAD
         CommentDSL comment = new CommentDSL();
-=======
->>>>>>> 642926f48bced0b5bcf6fc9750e5c618336c83db
+
         public ActionResult Index()
         {
 
@@ -177,18 +175,7 @@ namespace InvoiceSystem.Controllers
             return View();
         }
 
-<<<<<<< HEAD
-        /*public ActionResult AddComment(Comment Comm)
-        {
-
-            if (Comm != null)
-            {
-                comment.InsertComment(Comm);
-                comment.Commit();
-            }
-            return RedirectToAction("Index");
-        }*/
-
+    
         public ActionResult DeleteComment(int id)
         {
 
@@ -202,10 +189,10 @@ namespace InvoiceSystem.Controllers
 
         public String addComment(string InvoiceId , String Comment)
         {
-            //string userid = Session["UserID"].ToString();
+            string userid = Session["UserID"].ToString();
             Comment c = new Comment();
             c.Comment1 = Comment;
-            c.User_ID = 3;
+            c.User_ID = Convert.ToInt32(userid);
             c.Invoice_ID = Convert.ToInt32(InvoiceId);
             comment.InsertComment(c);
             comment.Commit();
@@ -215,8 +202,3 @@ namespace InvoiceSystem.Controllers
 
     }
 }
-=======
-
-    }
-}
->>>>>>> 642926f48bced0b5bcf6fc9750e5c618336c83db

@@ -38,15 +38,15 @@ namespace Collection.Repository
 
         }
 
-        public bool login(User user)
+        public int login(User user)
         {
-            var obj = context.Users.Where(a => a.UserName.Equals(user.UserName) &&
+            User obj = context.Users.Where(a => a.UserName.Equals(user.UserName) &&
             a.Password.Equals(user.Password)).FirstOrDefault();
             if (obj != null)
             {
-                return true;
+                return obj.ID;
             }
-            return false;
+            return -1;
         }
 
         public void DeleteUser(int id)
