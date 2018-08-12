@@ -16,7 +16,10 @@ namespace InvoiceSystem.Controllers
         // GET: Invoice
         InvoiceDSL i = new InvoiceDSL();
         CustomerDSL c = new CustomerDSL();
+<<<<<<< HEAD
         CommentDSL comment = new CommentDSL();
+=======
+>>>>>>> 642926f48bced0b5bcf6fc9750e5c618336c83db
         public ActionResult Index()
         {
 
@@ -174,6 +177,7 @@ namespace InvoiceSystem.Controllers
             return View();
         }
 
+<<<<<<< HEAD
         /*public ActionResult AddComment(Comment Comm)
         {
 
@@ -211,3 +215,8 @@ namespace InvoiceSystem.Controllers
 
     }
 }
+=======
+
+    }
+}
+>>>>>>> 642926f48bced0b5bcf6fc9750e5c618336c83db

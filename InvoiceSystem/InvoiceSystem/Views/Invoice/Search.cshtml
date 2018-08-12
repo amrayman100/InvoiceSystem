@@ -123,14 +123,24 @@
                                 "<td>" + item.CollectDate + "</td>" +
                                 "<td>" + item.Act_CollectedDate + "</td> " +
                                 "<td>" + item.Customer.Name + "</td> " +
-                                "<td>" + item.Amount + "</td> " +
-                                "<td>" + "<input type='checkbox'>" + "</td>" +
-                                "<td>" + "<input type='checkbox'>" + "</td>" +
-                                "<td>" + "<button id='btn1' type='button' onclick='comment(" + item.Invoice_No + ")' src='/Content/images/edit.png' class='btn btn-default'>" + "Comment" + "</button>" + "</td>" +
-                                "<td>" + "<img onclick='edit(" + item.Invoice_No + ")' src='/Content/images/edit.png' />" +
+                                "<td>" + item.Amount + "</td> ";
+                            if (item.Collected == true)
+                                rows += "<td>" + "<input type='checkbox' onclick='return false' checked>" + "</td>";
+                            else {
+                                rows += "<td>" + "<input type='checkbox' onclick='return false'>" + "</td>";
+                            }
+                            if (item.Suspended == true)
+                                rows += "<td>" + "<input type='checkbox' onclick='return false' checked>" + "</td>";
+                            else {
+                                rows += "<td>" + "<input type='checkbox' onclick='return false'>" + "</td>";
+                            }
+
+                              
+                              rows += "<td>" + "<button id='btn1' type='button' onclick='comment(" + item.Invoice_No + ")' src='/Content/images/edit.png' class='btn btn-default'>" + "Comment" + "</button>" + "</td>" +
+                                "<td>" + "<img onclick='edit(" + item.ID + ")' src='/Content/images/edit.png' />" +
 
                                 "</td>" +
-                                "<td>" + "<img onclick='del(" + item.Invoice_No + ")' src='/Content/images/delete.png'/>" + "</td>";
+                                "<td>" + "<img onclick='del(" + item.ID + ")' src='/Content/images/delete.png'/>" + "</td>";
                             +"</tr>";
 
                             $('#invoiceTable').append(rows);
@@ -151,18 +161,19 @@
         function edit(x) {
 
 
-            window.location.href = '/Home/Editinvoice/' + x;
+            window.location.href = '/Invoice/Edit/' + x;
         }
 
 
         function comment(x) {
 
-            window.location.href = '/Home/Editinvoice/' + x;
+            window.location.href = '/Invoice/Edit/' + x;
         }
 
         function del(x) {
 
-            alert(x + " Has Been Deleted");
+          //  alert(x + " Has Been Deleted");
+            window.location.href = '/Invoice/Delete/' + x;
         }
 
 
