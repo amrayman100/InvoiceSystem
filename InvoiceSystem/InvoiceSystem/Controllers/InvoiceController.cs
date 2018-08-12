@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Collection.DSL;
 using Collection.DAL;
 using InvoiceSystem.ViewModel;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace InvoiceSystem.Controllers
 {
@@ -13,8 +15,7 @@ namespace InvoiceSystem.Controllers
     {
         // GET: Invoice
         InvoiceDSL i = new InvoiceDSL();
-        CustomerDSL cust = new CustomerDSL();
-        CommentDSL Com = new CommentDSL();
+        CustomerDSL c = new CustomerDSL();
         public ActionResult Index()
         {
 
@@ -31,6 +32,7 @@ namespace InvoiceSystem.Controllers
 
         public ActionResult Search()
         {
+
             Customer c1 = new Customer { Cust_No = 1, Name = "elborg" };
             Customer c2 = new Customer { Cust_No = 2, Name = "alfa" };
             var invoices = new List<Invoice>
@@ -39,29 +41,26 @@ namespace InvoiceSystem.Controllers
               new Invoice{ID = 2 , Cust_ID = 2 , Act_CollectedDate = new DateTime(2017,2,8), Amount = 2000, Collected = true , Invoice_No = 13 , Suspended = false , CollectDate = new DateTime(2017,2,8), IssueDate = new DateTime(2017,2,8), Customer = c2},
 
            };
-
+            var list1 = i.GetInvoices();
+            var list2 = c.GetCustomers();
             var customers = new List<Customer> { c1, c2 };
 
-            InvoiceViewModel v = new InvoiceViewModel { Invoices = invoices, Customers = customers };
+            InvoiceViewModel v = new InvoiceViewModel { Invoices = list1, Customers = list2 };
 
             return View(v);
         }
-
-
         [HttpGet]
         public ActionResult Add()
         {
-            ViewData["Customer_List"] = cust.GetCustomers();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Add(Invoice invoice, int ss)
+        public ActionResult Add(Invoice invoice)
         {
 
             if (invoice != null)
             {
-                invoice.Cust_ID = ss;
                 i.InsertInvoice(invoice);
                 i.CommitInvoices();
             }
@@ -79,52 +78,27 @@ namespace InvoiceSystem.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public ActionResult Edit(int id)
-        {
-            ViewData["Customer_List"] = cust.GetCustomers();
-            return View(i.GetInvoiceByID(id));
-        }
-
-        [HttpPost]
-        public ActionResult Edit(Invoice invoice)
-        {
-            if (invoice != null)
-            {
-
-                i.UpdateInvoice(invoice);
-                i.CommitInvoices();
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-
 
         public string SearchResult(string IssueFrom, string IssueTo, string ColFrom, string ColTo, string Customer)
         {
-            Customer c1 = new Customer { Cust_No = 1, Name = "elborg" };
-            Customer c2 = new Customer { Cust_No = 2, Name = "alfa" };
-            DateTime A = new DateTime(2018, 1, 1);
-            var invoices = new List<Invoice>
-           {
-
-              new Invoice{ID = 1 , Cust_ID = 1 , Act_CollectedDate = A , Amount = 2000, Collected = true , Invoice_No = 12 , Suspended = false , CollectDate = A , IssueDate = A ,Customer = c1},
-              new Invoice{ID = 2 , Cust_ID = 2 , Act_CollectedDate = A , Amount = 2000, Collected = true , Invoice_No = 13 , Suspended = false , CollectDate = A , IssueDate = A , Customer = c2},
-
-           };
-
-
-            var invoices2 = new List<Invoice>();
 
             DateTime IT = CreateDateTime(IssueTo);
             DateTime IF = CreateDateTime(IssueFrom);
+            Customer c1 = new Customer { Cust_No = 1, Name = "elborg" };
+            Customer c2 = new Customer { Cust_No = 2, Name = "alfa" };
+            DateTime A = new DateTime(2018, 1, 1);
+
+            var list1 = i.GetInvoices();
+
+            var invoices2 = new List<Invoice>();
+
+
             // DateTime CT = CreateDateTime(ColTo);
             // DateTime CF = CreateDateTime(ColFrom);
 
             if (Customer == "0")
             {
-                foreach (var item in invoices)
+                foreach (var item in list1)
                 {
 
                     if (item.IssueDate >= IF && item.IssueDate <= IT)
@@ -139,7 +113,7 @@ namespace InvoiceSystem.Controllers
 
             else
             {
-                foreach (var item in invoices)
+                foreach (var item in list1)
                 {
 
                     if (item.IssueDate >= IF && item.IssueDate <= IT && Customer == item.Customer.Name)
@@ -154,7 +128,12 @@ namespace InvoiceSystem.Controllers
             }
 
 
-            var a = Newtonsoft.Json.JsonConvert.SerializeObject(invoices2);
+            //var a = Newtonsoft.Json.JsonConvert.SerializeObject(invoices2);
+            var a = JsonConvert.SerializeObject(invoices2, Formatting.None,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        });
 
             return a;
         }
@@ -172,7 +151,26 @@ namespace InvoiceSystem.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            ViewData["Customer_List"] = c.GetCustomers();
+            return View(i.GetInvoiceByID(id));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Invoice invoice)
+        {
+            if (invoice != null)
+            {
+
+                i.UpdateInvoice(invoice);
+                i.CommitInvoices();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
 
     }
-
 }
