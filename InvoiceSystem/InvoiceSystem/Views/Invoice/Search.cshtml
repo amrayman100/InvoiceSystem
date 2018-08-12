@@ -6,44 +6,54 @@
 }
 
 <h2>Invoice</h2>
-<form method="post">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="IDateTo" class="input">Issue Date From:</label>
-                <input type="date" class="form-control box" id="IDateTo" name="IDateTo">
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="IDateTo" class="input">Issue Date From:</label>
+            <input type="date" class="form-control box" id="IDateFrom" name="IDateFrom">
 
-            </div>
-            <div class="form-group">
-                <label class="input" for="IDateFrom">Issue Date to:</label>
-                <input type="date" class="form-control box" id="IDateFrom" name="IDateFrom">
-            </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="input" for="CDateTo">Collection Date From:</label>
-                <input type="date" class="form-control box" name="CDateTo">
-
-            </div>
-            <div class="form-group">
-                <label class="input" for="CDateFrom">Collection Date to:</label>
-                <input type="date" class="form-control box" name="CDateFrom">
-
-            </div>
+        <div class="form-group">
+            <label class="input" for="IDateFrom">Issue Date to:</label>
+            <input type="date" class="form-control box" id="IDateTo" name="IDateTo">
         </div>
     </div>
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="submit" value="Submit" data-toggle="dropdown">
-            Customers
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu"></ul>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="input" for="CDateTo">Collection Date From:</label>
+            <input type="date" id="CDateTo" class="form-control box" name="CDateFrom">
+
+        </div>
+        <div class="form-group">
+            <label class="input" for="CDateFrom">Collection Date to:</label>
+            <input type="date" id="CDateFrom" class="form-control box" name="CDateTo">
+
+        </div>
     </div>
-</form>
+</div>
+<div class="dropdown">
+    <button class="btn btn-primary" type="button" data-toggle="dropdown">
+        Customers
+
+    </button>
+
+</div>
+
+
+<select id="customer" value="0">
+    <option value="0">Please select</option>
+    @foreach (var item in Model.Customers)
+    {
+        <option value="@item.Name">@item.Name</option>
+    }
+</select>
+
 
 <center>
-    <button id="btn1" type="submit" class="btn btn-default">Search</button>
+    <button id="btn1" type="button" data-dismiss="modal" class="btn btn-default">Search</button>
 </center>
+
+
 
 <div class="add">
     <a href='@Url.Action("Reports", "Home")'>
@@ -73,74 +83,89 @@
                     <th>Delete</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var item in Model.Invoices)
-                {
-                    <tr>
-
-                        <td>@item.Invoice_No </td>
-
-                        <td> @item.IssueDate</td>
-
-                        <td>@item.CollectDate.ToString()  </td>
-
-                        <td> @item.Act_CollectedDate.GetValueOrDefault() </td>
-
-                        <td>@item.Customer.Name </td>
-
-                        <td> @item.Amount </td>
-
-                        <td><input type='checkbox'></td>
-
-                        <td><input type='checkbox'></td>
-
-                        <td><button id='btn1' type='button' class='btn btn-default'>Comment</button></td>
-
-                        <td>
-                            <a href='@Url.Action("Editinvoice", "Home",new { id = item.Invoice_No })'>
-                                <img src='~/Content/images/edit.png' />
-                            </a>
-                        </td>
-                        <td>
-                            <img src='~/Content/images/delete.png' />
-                        </td>
-
-
-                    </tr>
-                }
-            </tbody>
+            <tbody></tbody>
         </table>
     </div> <!--end of Panel-body -->
 </div> <!--end of Panel -->
 
-@{
-    if (IsPost)
-    {
-        var a = Request.Form["IDateTo"];
-        var b = Request.Form["IDateFrom"];
-
-        <text>
-            Company Name: @a<br />
-            Contact Name: @b<br />
-        </text>
-    }
-
-
-}
+<div id="test"></div>
 
 @section scripts
 {
-    <script type="text/javascript">
-            $(document).ready(function () {
 
-                //Fetch From API Here
+    <script>
+
+        $(document).ready(function () {
+
+            $('#btn1').click(function () {
+
+                var val1 = $("#IDateTo").val();
+                var val2 = $("#IDateFrom").val();
+                var val3 = $("#CDateTo").val();
+                var val4 = $("#CDateFrom").val();
+                var name = $("#customer").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Invoice/SearchResult',
+                    data: { IssueTo: val1, IssueFrom: val2, ColTo: val3, ColFrom: val4, Customer: name },
+                    type: "POST",
+
+                    dataType: 'json',
+
+                    success: function (data) {
+                        $('#invoiceTable tbody > tr').remove();
+                        $.each(data, function (index, item) {
+
+                            var rows = "<tr>" +
+                                "<td>" + item.Invoice_No + "</td>" +
+                                "<td>" + item.IssueDate + "</td>" +
+                                "<td>" + item.CollectDate + "</td>" +
+                                "<td>" + item.Act_CollectedDate + "</td> " +
+                                "<td>" + item.Customer.Name + "</td> " +
+                                "<td>" + item.Amount + "</td> " +
+                                "<td>" + "<input type='checkbox'>" + "</td>" +
+                                "<td>" + "<input type='checkbox'>" + "</td>" +
+                                "<td>" + "<button id='btn1' type='button' onclick='comment(" + item.Invoice_No + ")' src='/Content/images/edit.png' class='btn btn-default'>" + "Comment" + "</button>" + "</td>" +
+                                "<td>" + "<img onclick='edit(" + item.Invoice_No + ")' src='/Content/images/edit.png' />" +
+
+                                "</td>" +
+                                "<td>" + "<img onclick='del(" + item.Invoice_No + ")' src='/Content/images/delete.png'/>" + "</td>";
+                            +"</tr>";
+
+                            $('#invoiceTable').append(rows);
+
+                        });
+
+                    },
+                    error: function (response) {
+                        alert("Invalid, Please enter the data correctly");
+                    }
+
+                });
             });
-
-            function search() {
-
+        });
 
 
-                }
+
+        function edit(x) {
+
+
+            window.location.href = '/Home/Editinvoice/' + x;
+        }
+
+
+        function comment(x) {
+
+            window.location.href = '/Home/Editinvoice/' + x;
+        }
+
+        function del(x) {
+
+            alert(x + " Has Been Deleted");
+        }
+
+
 
 
     </script>

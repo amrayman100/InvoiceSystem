@@ -19,12 +19,12 @@ namespace Collection.DSL
         }
         public User GetUserByID(int id)
         {
-            return GetUserByID(id);
+            return repo.GetUserByID(id);
         }
 
-        public void InsertUser(User user)
+        public bool InsertUser(User user)
         {
-            repo.InsertUser(user);
+            return(repo.InsertUser(user));
 
         }
 
@@ -33,11 +33,15 @@ namespace Collection.DSL
             repo.DeleteUser(id);
         }
 
-        public void UpdateUser(User user)
+        public bool UpdateUser(User user)
         {
-            repo.UpdateUser(user);
+            return(repo.UpdateUser(user));
         }
 
+        public bool userlogin(User user)
+        {
+            return (repo.login(user));
+        }
         public void Commit()
         {
             repo.Commit();

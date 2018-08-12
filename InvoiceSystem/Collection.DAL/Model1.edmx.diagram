@@ -8,12 +8,10 @@
         <EntityTypeShape EntityType="invoicesystemModel.Comment" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="invoicesystemModel.Customer" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="invoicesystemModel.Invoice" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="invoicesystemModel.Type" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="invoicesystemModel.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="invoicesystemModel.FK_Comments_Invoice" ManuallyRouted="false" />
         <AssociationConnector Association="invoicesystemModel.FK_Comments_User" ManuallyRouted="false" />
         <AssociationConnector Association="invoicesystemModel.FK_Invoice_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="invoicesystemModel.FK_User_Types" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

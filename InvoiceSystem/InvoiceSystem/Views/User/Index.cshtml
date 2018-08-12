@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Collection.DAL.User>
+@{
+    ViewBag.Title = "Index";
+}
+
+<label>@Html.ActionLink("Add New User", "Add", "User")</label>
+
+
+<table class="table table-bordered table-responsive table-hover" id="userdata">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>User Name </th>
+            <th>Active</th>
+            <th>Admin</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ID </td>
+            <td> @item.Name</td>
+            <td> @item.UserName</td>
+
+            @if (@item.Active == true)
+            {
+                <td><input type='checkbox' onclick="return false" checked></td>
+            }
+            else
+            {
+                <td><input type='checkbox' onclick="return false"></td>
+            }
+
+            @if (@item.IsAdmin == true)
+            {
+                <td><input type='checkbox' onclick="return false" checked></td>
+            }
+            else
+            {
+                <td><input type='checkbox' onclick="return false"></td>
+            }
+
+            <td>
+                <a href='@Url.Action("Edit", "User", new { id = @item.ID })'>
+                    <img src='~/Content/images/edit.png' />
+                </a>
+            </td>
+            <td>
+                <label>@Html.ActionLink("Delete", "Delete", "User", new { id = @item.ID }, new { onClick = "return confirm('Are You Sure You want to Delete This');" })</label>
+
+                <img src='~/Content/images/delete.png' />
+
+            </td>
+
+        </tr>
+    }
+</table>

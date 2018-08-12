@@ -28,7 +28,6 @@ namespace Collection.DAL
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
-        public virtual DbSet<Type> Types { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
 }

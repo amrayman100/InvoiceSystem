@@ -11,7 +11,9 @@ namespace Collection.DAL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,17 +21,26 @@ namespace Collection.DAL
         {
             this.Comments = new HashSet<Comment>();
         }
-    
+
         public int ID { get; set; }
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "This field is required")]
         public string UserName { get; set; }
+
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "This field is required")]
         public string Password { get; set; }
+
+        [DisplayName("Confirm Password")]
+        [DataType(DataType.Password)]
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<int> User_No { get; set; }
-        public int Type_ID { get; set; }
-    
+        public Nullable<bool> IsAdmin { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
-        public virtual Type Type { get; set; }
     }
 }

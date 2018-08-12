@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentRepo.cs" />
     <Compile Include="InvoiceRepo.cs" />
     <Compile Include="CustomerRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

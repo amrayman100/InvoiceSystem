@@ -24,9 +24,11 @@ namespace Collection.DSL
 
         public void InsertInvoice(Invoice invo)
         {
-
+            if (invo.Collected == true)
+                invo.Act_CollectedDate = DateTime.Now;
             repo.InsertInvoice(invo);
         }
+
         public void Delete(int id)
         {
             repo.DeleteInvoice(id);

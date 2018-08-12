@@ -10,5 +10,6 @@ namespace InvoiceSystem.ViewModel
     public class InvoiceViewModel
     {
         public IEnumerable<Invoice> Invoices { get; set; }
+        public IEnumerable<Customer> Customers { get; set; }
     }
 }

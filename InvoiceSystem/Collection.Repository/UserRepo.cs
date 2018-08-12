@@ -24,10 +24,29 @@ namespace Collection.Repository
             return context.Users.Find(id);
         }
 
-        public void InsertUser(User user)
+        public bool InsertUser(User user)
         {
-            context.Users.Add(user);
+            if (context.Users.Any(x => x.UserName == user.UserName))
+            {
+                return false;
+            }
+            else
+            {
+                context.Users.Add(user);
+                return true;
+            }
 
+        }
+
+        public bool login(User user)
+        {
+            var obj = context.Users.Where(a => a.UserName.Equals(user.UserName) &&
+            a.Password.Equals(user.Password)).FirstOrDefault();
+            if (obj != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void DeleteUser(int id)
@@ -37,10 +56,17 @@ namespace Collection.Repository
 
         }
 
-        public void UpdateUser(User user)
+        public bool UpdateUser(User user)
         {
-            context.Entry(user).State = EntityState.Modified;
-
+            if (context.Users.Any(x => x.UserName == user.UserName))
+            {
+                return false;
+            }
+            else
+            {
+                context.Entry(user).State = EntityState.Modified;
+                return true;
+            }
         }
 
         public void Commit()
