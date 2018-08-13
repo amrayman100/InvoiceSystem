@@ -51,6 +51,9 @@ namespace InvoiceSystem.Controllers
 
             InvoiceViewModel v = new InvoiceViewModel { Invoices = list1, Customers = list2 };
 
+            var list = comment.GetComments();
+            ViewData["CommentList"] = list;
+
             return View(v);
         }
         [HttpGet]
@@ -161,6 +164,8 @@ namespace InvoiceSystem.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            var list = comment.GetComments();
+            ViewData["CommentList"] = list;
             ViewData["Customer_List"] = c.GetCustomers();
             return View(i.GetInvoiceByID(id));
         }

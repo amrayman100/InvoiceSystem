@@ -136,7 +136,7 @@
         </table>
 
         <div class="form-group">
-            <label class="input">Issue Date From:</label>
+            
             <textarea rows="10" cols="50" id="comm">
              
             </textarea>
@@ -144,7 +144,7 @@
 
         </div>
         <center>
-            <button id="#add" onclick="hi()" type="button" data-dismiss="modal" class="btn btn-default">Search</button>
+            <button id="#add" onclick="hi()" type="button" data-dismiss="modal" class="btn btn-default">Add Comment</button>
         </center>
 
     </div>
@@ -155,50 +155,7 @@
 @section scripts{
 
     <script>
-        $(document).ready(function () {
-
-            $('#add').click(function () {
-                alert("hi")
-
-                var comm = $("#comm").val();
-                var invoiceid = $("#InvoiceId").val();
-
-
-                $.ajax({
-                    type: "POST",
-                    url: '/Invoice/addComment',
-                    data: { InvoiceId: invoiceid, Comment: comm },
-                    type: "POST",
-
-                    dataType: 'json',
-
-                    success: function (data) {
-                        $.each(data, function (index, item) {
-                            if (item.Invoice_ID == invoiceid) {
-                                var rows = "<tr>" +
-
-                                    "<td>" + item.User.UserName + "</td>" +
-                                    "<td>" + item.Comment1 + "</td>" +
-                                    "<td>" + item.item.Date + "</td>" +
-                                    "<td>" + "<img onclick='del(" + item.ID + ")' src='/Content/images/delete.png'/>" + "</td>" +
-
-                                    +"</tr>";
-
-                                $('#commentTable').append(rows);
-
-                            }
-
-                        });
-                   
-                       
-                    },
-                    error: function (response) {
-                        alert("Invalid, Please enter the data correctly");
-                    }
-
-                });
-            });
-        });
+      
 
         // Get the modal
         var modal = document.getElementById('myModal');
@@ -234,14 +191,8 @@
         }
 
         function hi() {
-
-            alert(document.getElementById('InvoiceId').val);
-           
-           
             var comm = $("#comm").val();
             var invoiceid = document.getElementById('InvoiceId').val;
-
-
             $.ajax({
                 type: "POST",
                 url: '/Invoice/addComment',
@@ -269,8 +220,6 @@
                             }
 
                         });
-                        
-                     
                 },
                 error: function (response) {
                     alert("Invalid, Please enter the data correctly");
