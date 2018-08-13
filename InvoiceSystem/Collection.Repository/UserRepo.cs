@@ -44,7 +44,10 @@ namespace Collection.Repository
             a.Password.Equals(user.Password)).FirstOrDefault();
             if (obj != null)
             {
-                return obj.ID;
+                if (obj.Active == true)
+                    return obj.ID;
+                else
+                    return -1;
             }
             return -1;
         }
