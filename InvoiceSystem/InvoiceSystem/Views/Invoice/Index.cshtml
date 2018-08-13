@@ -9,15 +9,18 @@
 
 @Html.Hidden("InvoiceId")
 
+
 <div class="add">
     <a href='@Url.Action("Add", "Invoice")'>
+        <img src="~/Content/images/add2.png" />
         Add Invoice
     </a>
 </div>
 
 <div class="add">
     <a href='@Url.Action("Search", "Invoice")'>
-        Search Invoice
+        <img src="~/Content/images/search.png" />
+        Search For Invoices
     </a>
 </div>
 
@@ -78,7 +81,7 @@
                             <td><input type='checkbox' onclick="return false"></td>
                         }
 
-                        <td><button id="myBtn" onclick ="openBox(@item.ID)" type='button' class='btn btn-default'>Comment</button></td>
+                        <td><button id="myBtn" onclick="openBox(@item.ID)" type='button' class='btn btn-default'>Comment</button></td>
 
                         <td>
                             <a href='@Url.Action("Edit", "Invoice",new { id = @item.ID })'>
@@ -97,14 +100,6 @@
         </table>
     </div> <!--end of Panel-body -->
 </div> <!--end of Panel -->
-
-
-
-<h2>Modal Example</h2>
-
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">Open Modal</button>
-
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
@@ -136,7 +131,7 @@
         </table>
 
         <div class="form-group">
-            
+
             <textarea rows="10" cols="50" id="comm">
              
             </textarea>
@@ -155,7 +150,7 @@
 @section scripts{
 
     <script>
-      
+
 
         // Get the modal
         var modal = document.getElementById('myModal');
@@ -175,7 +170,7 @@
             modal.style.display = "block";
             document.getElementById('InvoiceId').val = a;
             var b = document.getElementById('InvoiceId').val;
-           
+
         }
 
         // When the user clicks on <span> (x), close the modal
@@ -204,7 +199,7 @@
                 success: function (data) {
                     $('#commentTable tbody > tr').remove();
                     $.each(data, function (index, item) {
-                       
+
                         if (item.Invoice_ID == invoiceid) {
                             var rows = "<tr>" +
 
@@ -217,9 +212,9 @@
 
                             $('#commentTable').append(rows);
 
-                            }
+                        }
 
-                        });
+                    });
                 },
                 error: function (response) {
                     alert("Invalid, Please enter the data correctly");
@@ -238,7 +233,7 @@
 
 
 
-           
+
     </script>
 
 

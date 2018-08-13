@@ -51,6 +51,14 @@ namespace InvoiceSystem.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Logoff()
+        {
+            Session["UserID"] = null;
+            Session["UserName"] = null;
+
+            return View("Login");
+        }
+
         [HttpGet]
         public ActionResult Edit(int id)
         {
