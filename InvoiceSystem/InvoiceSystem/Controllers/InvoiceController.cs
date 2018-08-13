@@ -56,15 +56,18 @@ namespace InvoiceSystem.Controllers
         [HttpGet]
         public ActionResult Add()
         {
+            var list = c.GetCustomers();
+            ViewData["Customer_List"] = list;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Add(Invoice invoice)
+        public ActionResult Add(Invoice invoice, int ss)
         {
 
             if (invoice != null)
             {
+                invoice.Cust_ID = ss;
                 i.InsertInvoice(invoice);
                 i.CommitInvoices();
             }
