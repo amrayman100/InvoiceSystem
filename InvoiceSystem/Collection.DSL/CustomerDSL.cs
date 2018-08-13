@@ -25,7 +25,14 @@ namespace Collection.DSL
 
         public void InsertCustomer(Customer customer)
         {
-
+            var list = repo.GetCustomers();
+            int cnt = list.Count();
+            foreach(var i in list)
+            {
+                if (i.Cust_No >= cnt)
+                    cnt = (int)i.Cust_No + 1;
+            }
+            customer.Cust_No = cnt;
             repo.InsertCustomer(customer);
         }
         public void Delete(int id)

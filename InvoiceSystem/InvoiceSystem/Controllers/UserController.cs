@@ -80,7 +80,6 @@ namespace InvoiceSystem.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Login(User objUser)
         {
             int id = iuser.userlogin(objUser);

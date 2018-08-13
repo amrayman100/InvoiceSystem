@@ -24,8 +24,15 @@ namespace Collection.DSL
 
         public bool InsertUser(User user)
         {
-            return(repo.InsertUser(user));
-
+            var list = repo.GetUsers();
+            int cnt = list.Count();
+            foreach (var i in list)
+            {
+                if (i.User_No >= cnt)
+                    cnt = (int)i.User_No + 1;
+            }
+            user.User_No = cnt;
+            return (repo.InsertUser(user));
         }
 
         public void DeleteUser(int id)
