@@ -111,7 +111,7 @@
     <!-- Modal content -->
     <div class="modal-content">
         <span class="close">&times;</span>
-        <table class="table table-bordered" id="invoiceTable">
+        <table class="table table-bordered" id="commentTable">
             <thead>
                 <tr>
                     <th>User Name</th>
@@ -129,7 +129,7 @@
                         <td>@item.User.UserName</td>
                         <td>@item.Comment1</td>
                         <td>@item.Date</td>
-                        <td><label>@Html.ActionLink("Delete", "DeleteComment", "Invoice", new { id = @item.ID }, new { onClick = "return confirm('Are You Sure You want to Delete This'); " })</label></td>
+                        <td><label>@Html.ActionLink("Delete", "DeleteComment", "Invoice", new { id = @item.ID }, new { onClick = "return confirm('Are You Sure You want to Delete This'); " })  <img src='~/Content/images/delete.png' /> </label></td>
                     </tr>
                 }
             </tbody>
@@ -173,8 +173,24 @@
                     dataType: 'json',
 
                     success: function (data) {
+                        $.each(data, function (index, item) {
+                            if (item.Invoice_ID == invoiceid) {
+                                var rows = "<tr>" +
 
-                        alert(data);
+                                    "<td>" + item.User.UserName + "</td>" +
+                                    "<td>" + item.Comment1 + "</td>" +
+                                    "<td>" + item.item.Date + "</td>" +
+                                    "<td>" + "<img onclick='del(" + item.ID + ")' src='/Content/images/delete.png'/>" + "</td>" +
+
+                                    +"</tr>";
+
+                                $('#commentTable').append(rows);
+
+                            }
+
+                        });
+                   
+                       
                     },
                     error: function (response) {
                         alert("Invalid, Please enter the data correctly");
@@ -235,14 +251,40 @@
                 dataType: 'json',
 
                 success: function (data) {
+                    $('#commentTable tbody > tr').remove();
+                    $.each(data, function (index, item) {
+                       
+                        if (item.Invoice_ID == invoiceid) {
+                            var rows = "<tr>" +
 
-                    alert(data);
+                                "<td>" + item.User.UserName + "</td>" +
+                                "<td>" + item.Comment1 + "</td>" +
+                                "<td>" + item.Date + "</td>" +
+                                "<td>" + "<img onclick='del(" + item.ID + ")' src='/Content/images/delete.png'/>" + "</td>" +
+
+                                +"</tr>";
+
+                            $('#commentTable').append(rows);
+
+                            }
+
+                        });
+                        
+                     
                 },
                 error: function (response) {
                     alert("Invalid, Please enter the data correctly");
                 }
 
             });
+        }
+
+
+
+        function del(x) {
+
+            //  alert(x + " Has Been Deleted");
+            window.location.href = '/Invoice/DeleteComment/' + x;
         }
 
 

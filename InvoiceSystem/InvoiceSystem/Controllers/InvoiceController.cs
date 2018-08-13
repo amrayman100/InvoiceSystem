@@ -197,7 +197,20 @@ namespace InvoiceSystem.Controllers
             comment.InsertComment(c);
             comment.Commit();
 
-            return "Commment Added";
+            var comments = comment.GetComments();
+            
+            
+
+
+              var a = JsonConvert.SerializeObject(comments, Formatting.None,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        });
+
+            return a;
+
+          
         }
 
     }
