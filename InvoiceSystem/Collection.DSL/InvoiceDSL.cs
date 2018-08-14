@@ -37,6 +37,8 @@ namespace Collection.DSL
 
         public void UpdateInvoice(Invoice invo)
         {
+            if (invo.Collected == true && invo.Act_CollectedDate == null)
+                invo.Act_CollectedDate = DateTime.Now;
             repo.UpdateInvoice(invo);
         }
 
