@@ -34,9 +34,12 @@ namespace InvoiceSystem.Controllers
             {
                 if (iuser.InsertUser(u) == true)
                 {
-                    Session["UserID"] = u.ID;
-                    Session["UserName"] = u.UserName;
-                    Session["Admin"] = u.IsAdmin;
+                    if (Session["UserID"] == null)
+                    {
+                        Session["UserID"] = u.ID;
+                        Session["UserName"] = u.UserName;
+                        Session["Admin"] = u.IsAdmin;
+                    }
                     iuser.Commit();
                 }
                 else
@@ -69,7 +72,7 @@ namespace InvoiceSystem.Controllers
             Session["UserName"] = null;
             Session["Admin"] = null;
 
-            return View("Login");
+            return RedirectToAction("Login");
         }
 
         [HttpGet]
