@@ -117,16 +117,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Clist)
-                {
-                    <tr>
-
-                        <td>@item.User.UserName</td>
-                        <td>@item.Comment1</td>
-                        <td>@item.Date</td>
-                        <td><label>@Html.ActionLink("Delete", "DeleteComment", "Invoice", new { id = @item.ID }, new { onClick = "return confirm('Are You Sure You want to Delete This'); " })  <img src='~/Content/images/delete.png' /> </label></td>
-                    </tr>
-                }
+              
             </tbody>
         </table>
 
@@ -171,6 +162,41 @@
             document.getElementById('InvoiceId').val = a;
             var b = document.getElementById('InvoiceId').val;
 
+            var invoiceid = document.getElementById('InvoiceId').val;
+            $.ajax({
+                type: "POST",
+                url: '/Invoice/fillTable',
+                data: { InvoiceId: invoiceid },
+                type: "POST",
+
+                dataType: 'json',
+
+                success: function (data) {
+                    $('#commentTable tbody > tr').remove();
+                    $.each(data, function (index, item) {
+
+                        // if (item.Invoice_ID == invoiceid) {
+                        var rows = "<tr>" +
+
+                            "<td>" + item.User.UserName + "</td>" +
+                            "<td>" + item.Comment1 + "</td>" +
+                            "<td>" + item.Date + "</td>" +
+                            "<td>" + "<img onclick='del(" + item.ID + ")' src='/Content/images/delete.png'/>" + "</td>" +
+
+                            +"</tr>";
+
+                        $('#commentTable').append(rows);
+
+                        //}
+
+                    });
+                },
+                error: function (response) {
+                    
+                }
+
+            });
+
         }
 
         // When the user clicks on <span> (x), close the modal
@@ -200,7 +226,7 @@
                     $('#commentTable tbody > tr').remove();
                     $.each(data, function (index, item) {
 
-                        if (item.Invoice_ID == invoiceid) {
+                       // if (item.Invoice_ID == invoiceid) {
                             var rows = "<tr>" +
 
                                 "<td>" + item.User.UserName + "</td>" +
@@ -212,7 +238,7 @@
 
                             $('#commentTable').append(rows);
 
-                        }
+                        //}
 
                     });
                 },
@@ -221,6 +247,14 @@
                 }
 
             });
+        }
+
+
+        function fillTable() {
+
+            
+           
+
         }
 
 

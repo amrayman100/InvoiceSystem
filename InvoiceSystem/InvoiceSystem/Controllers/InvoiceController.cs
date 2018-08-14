@@ -206,11 +206,22 @@ namespace InvoiceSystem.Controllers
             comment.Commit();
 
             var comments = comment.GetComments();
-            
-            
+
+            var comments2 = new List<Comment>();
+
+            foreach (var item in comments)
+            {
+                if(item.Invoice_ID == Convert.ToInt32(InvoiceId))
+                {
+                    comments2.Add(item);
+
+                }
+
+            }
 
 
-              var a = JsonConvert.SerializeObject(comments, Formatting.None,
+
+                var a = JsonConvert.SerializeObject(comments2, Formatting.None,
                         new JsonSerializerSettings()
                         {
                             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
@@ -219,6 +230,35 @@ namespace InvoiceSystem.Controllers
             return a;
 
           
+        }
+
+
+        public String fillTable(string InvoiceId)
+        {
+
+            var comments = comment.GetComments();
+
+            var comments2 = new List<Comment>();
+
+            foreach (var item in comments)
+            {
+                if (item.Invoice_ID == Convert.ToInt32(InvoiceId))
+                {
+                    comments2.Add(item);
+
+                }
+
+            }
+
+
+
+            var a = JsonConvert.SerializeObject(comments2, Formatting.None,
+                    new JsonSerializerSettings()
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    });
+
+            return a;
         }
 
     }

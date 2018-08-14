@@ -3,7 +3,14 @@
     ViewBag.Title = "Index";
 }
 
-<label>@Html.ActionLink("Add New Customer", "Add", "Customer")</label>
+
+
+<div class="add">
+    <a href='@Url.Action("Add", "Customer")'>
+        <img src="~/Content/images/add2.png" />
+        Add Customer
+    </a>
+</div>
 
 
 <table class="table table-bordered table-responsive table-hover" id="userdata">
