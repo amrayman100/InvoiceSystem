@@ -223,7 +223,9 @@
     <Content Include="Content\images\add2.png" />
     <Content Include="Content\images\delete.png" />
     <Content Include="Content\images\edit.png" />
+    <Content Include="Content\images\invoice.png" />
     <Content Include="Content\images\logo2.png" />
+    <Content Include="Content\images\signup.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -299,6 +301,8 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\unauthorize.cshtml" />
+    <Content Include="Views\User\No.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

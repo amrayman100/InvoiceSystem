@@ -28,10 +28,11 @@
                         <li>@Html.ActionLink("Setup", "Index", "Customer")</li>
                         <li>@Html.ActionLink("Invoice", "Index", "Invoice")</li>
                         <li>@Html.ActionLink("Users", "Index", "User")</li>
-                        <li style="float:right">@Html.ActionLink("Log Out", "Logoff", "User")</li>
+                        <li>@Html.ActionLink("Log Out", "Logoff", "User")</li>
                     </ul>
-                   
+                    @Html.Partial("_LoginPartial")
                 </div>
+               
                 <!--/.nav-collapse -->
             </div>
             <!--/.container-fluid -->

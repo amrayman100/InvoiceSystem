@@ -35,6 +35,8 @@ namespace Collection.Repository
         public void DeleteCustomer(int id)
         {
             Customer customer = context.Customers.Find(id);
+            var list = customer.Invoices;
+            context.Invoices.RemoveRange(list);
             context.Customers.Remove(customer);
             
         }

@@ -15,7 +15,15 @@ namespace Collection.DSL
         public IEnumerable<Customer> GetCustomers()
         {
             var list = repo.GetCustomers();
-            return list;
+            List<Customer> list2 = new List<Customer>();
+            foreach (var i in list)
+            {
+                if(i.Active==true)
+                {
+                    list2.Add(i);
+                }
+            }
+            return list2 ;
         }
         public Customer GetCustomerByID(int id)
         {

@@ -33,6 +33,10 @@ namespace Collection.Repository
         public void DeleteInvoice(int id)
         {
             Invoice invo = context.Invoices.Find(id);
+            var list = invo.Comments;
+
+//            foreach (var i in list)
+            context.Comments.RemoveRange(list);
             context.Invoices.Remove(invo);
 
         }

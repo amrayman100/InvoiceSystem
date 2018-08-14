@@ -20,6 +20,9 @@ namespace InvoiceSystem.Controllers
         [HttpGet]
         public ActionResult Add(int id=0)
         {
+
+            if (Session["Admin"].Equals(false))
+                return RedirectToAction("unauthorize");
             return View();
         }
 
@@ -30,7 +33,12 @@ namespace InvoiceSystem.Controllers
             if (u != null)
             {
                 if (iuser.InsertUser(u) == true)
+                {
+                    Session["UserID"] = u.ID;
+                    Session["UserName"] = u.UserName;
+                    Session["Admin"] = u.IsAdmin;
                     iuser.Commit();
+                }
                 else
                 {
                     ViewBag.DuplicateMessage = "username already exists";
@@ -43,11 +51,15 @@ namespace InvoiceSystem.Controllers
         public ActionResult Delete(int id)
         {
 
+            if (Session["Admin"].Equals(false))
+                return View("No");
             if (id > 0)
             {
                 iuser.DeleteUser(id);
                 iuser.Commit();
             }
+            if(id== Convert.ToInt32(Session["UserID"]))
+                return RedirectToAction("Login");
             return RedirectToAction("Index");
         }
 
@@ -55,6 +67,7 @@ namespace InvoiceSystem.Controllers
         {
             Session["UserID"] = null;
             Session["UserName"] = null;
+            Session["Admin"] = null;
 
             return View("Login");
         }
@@ -62,12 +75,16 @@ namespace InvoiceSystem.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            if (Session["Admin"].Equals(false))
+                return View("No");
+
             return View(iuser.GetUserByID(id));
         }
 
         [HttpPost]
         public ActionResult Edit(User u)
         {
+           
             if (u != null)
             {
                 if (iuser.UpdateUser(u) == true)
@@ -95,6 +112,7 @@ namespace InvoiceSystem.Controllers
             {
                 Session["UserID"] = id;
                 Session["UserName"] = objUser.UserName;
+                Session["Admin"] = iuser.GetUserByID(id).IsAdmin;
                 return RedirectToAction("Index");
             }
 

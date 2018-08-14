@@ -55,6 +55,8 @@ namespace Collection.Repository
         public void DeleteUser(int id)
         {
             User user = context.Users.Find(id);
+            var list = user.Comments;
+            context.Comments.RemoveRange(list);
             context.Users.Remove(user);
 
         }
