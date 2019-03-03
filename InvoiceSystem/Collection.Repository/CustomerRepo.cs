@@ -22,14 +22,12 @@ namespace Collection.Repository
         public Customer GetCustomerByID(int id)
         {
             var z = context.Customers.SingleOrDefault(m => m.ID == id);
-
             return z;   
         }
 
         public void InsertCustomer(Customer customer)
         {
             context.Customers.Add(customer);
-            
         }
 
         public void DeleteCustomer(int id)
@@ -38,13 +36,11 @@ namespace Collection.Repository
             var list = customer.Invoices;
             context.Invoices.RemoveRange(list);
             context.Customers.Remove(customer);
-            
         }
 
         public void UpdateCustomer(Customer customer)
         {
             context.Entry(customer).State = EntityState.Modified;
-           
         }
 
         public void Commit()

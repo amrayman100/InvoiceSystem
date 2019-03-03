@@ -29,9 +29,10 @@ namespace Collection.DAL
         public Nullable<System.DateTime> Act_CollectedDate { get; set; }
         public Nullable<bool> Collected { get; set; }
         public Nullable<bool> Suspended { get; set; }
+        public Nullable<int> Customer_ID { get; set; }
     
+        public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
-        public virtual Customer Customer { get; set; }
     }
 }

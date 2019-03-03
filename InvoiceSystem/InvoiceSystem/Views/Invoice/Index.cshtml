@@ -59,7 +59,7 @@
 
                         <td> @item.Act_CollectedDate.GetValueOrDefault() </td>
 
-                        <td>@item.Customer.Name </td>
+                        <td>@item.Cust_ID </td>
 
                         <td> @item.Amount </td>
 
@@ -80,9 +80,7 @@
                         {
                             <td><input type='checkbox' onclick="return false"></td>
                         }
-
                         <td><button id="myBtn" onclick="openBox(@item.ID)" type='button' class='btn btn-default'>Comment</button></td>
-
                         <td>
                             <a href='@Url.Action("Edit", "Invoice",new { id = @item.ID })'>
                                 <img src='~/Content/images/edit.png' />
@@ -92,8 +90,6 @@
                             <label>@Html.ActionLink("Delete", "Delete", "Invoice", new { id = @item.ID }, new { onClick = "return confirm('Are You Sure You want to Delete This');" })</label>
                             <img src='~/Content/images/delete.png' />
                         </td>
-
-
                     </tr>
                 }
             </tbody>
@@ -113,104 +109,72 @@
                     <th>Comment</th>
                     <th>Date</th>
                     <th>Delete</th>
-
                 </tr>
             </thead>
-            <tbody>
-              
-            </tbody>
+            <tbody></tbody>
         </table>
 
         <div class="form-group">
-
-            <textarea rows="10" cols="50" id="comm">
-             
-            </textarea>
-
-
+            <textarea rows="10" cols="50" id="comm"></textarea>
         </div>
         <center>
             <button id="#add" onclick="hi()" type="button" data-dismiss="modal" class="btn btn-default">Add Comment</button>
         </center>
-
     </div>
-
 </div>
 
 
 @section scripts{
 
     <script>
-
-
         // Get the modal
         var modal = document.getElementById('myModal');
-
         // Get the button that opens the modal
         var btn = document.getElementById("myBtn");
-
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
-
         // When the user clicks the button, open the modal
         /*btn.onclick = function () {
             modal.style.display = "block";
         }*/
-
         function openBox(a) {
             modal.style.display = "block";
             document.getElementById('InvoiceId').val = a;
             var b = document.getElementById('InvoiceId').val;
-
             var invoiceid = document.getElementById('InvoiceId').val;
             $.ajax({
                 type: "POST",
                 url: '/Invoice/fillTable',
                 data: { InvoiceId: invoiceid },
                 type: "POST",
-
                 dataType: 'json',
-
                 success: function (data) {
                     $('#commentTable tbody > tr').remove();
                     $.each(data, function (index, item) {
-
                         // if (item.Invoice_ID == invoiceid) {
                         var rows = "<tr>" +
-
                             "<td>" + item.User.UserName + "</td>" +
                             "<td>" + item.Comment1 + "</td>" +
                             "<td>" + item.Date + "</td>" +
                             "<td>" + "<img onclick='del(" + item.ID + ")' src='/Content/images/delete.png'/>" + "</td>" +
-
                             +"</tr>";
-
                         $('#commentTable').append(rows);
-
-                        //}
-
                     });
                 },
                 error: function (response) {
-                    
                 }
-
             });
-
         }
-
         // When the user clicks on <span> (x), close the modal
         span.onclick = function () {
             modal.style.display = "none";
         }
-
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
-
         function hi() {
             var comm = $("#comm").val();
             var invoiceid = document.getElementById('InvoiceId').val;
@@ -219,55 +183,30 @@
                 url: '/Invoice/addComment',
                 data: { InvoiceId: invoiceid, Comment: comm },
                 type: "POST",
-
                 dataType: 'json',
-
                 success: function (data) {
                     $('#commentTable tbody > tr').remove();
                     $.each(data, function (index, item) {
-
-                       // if (item.Invoice_ID == invoiceid) {
-                            var rows = "<tr>" +
-
-                                "<td>" + item.User.UserName + "</td>" +
-                                "<td>" + item.Comment1 + "</td>" +
-                                "<td>" + item.Date + "</td>" +
-                                "<td>" + "<img onclick='del(" + item.ID + ")' src='/Content/images/delete.png'/>" + "</td>" +
-
-                                +"</tr>";
-
-                            $('#commentTable').append(rows);
-
-                        //}
-
+                        // if (item.Invoice_ID == invoiceid) {
+                        var rows = "<tr>" +
+                            "<td>" + item.User.UserName + "</td>" +
+                            "<td>" + item.Comment1 + "</td>" +
+                            "<td>" + item.Date + "</td>" +
+                            "<td>" + "<img onclick='del(" + item.ID + ")' src='/Content/images/delete.png'/>" + "</td></tr>";
+                        $('#commentTable').append(rows);
                     });
                 },
                 error: function (response) {
                     alert("Invalid, Please enter the data correctly");
                 }
-
             });
         }
-
-
         function fillTable() {
-
-            
-           
-
         }
-
-
-
         function del(x) {
-
             //  alert(x + " Has Been Deleted");
             window.location.href = '/Invoice/DeleteComment/' + x;
         }
-
-
-
-
     </script>
 
 

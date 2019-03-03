@@ -21,7 +21,7 @@ namespace InvoiceSystem.Controllers
         public ActionResult Add(int id=0)
         {
 
-            if (Session["Admin"].Equals(false))
+            if (Session["Admin"] == null || Session["Admin"].Equals(false))
                 return RedirectToAction("unauthorize");
             return View();
         }

@@ -22,14 +22,12 @@ namespace InvoiceSystem.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            
             return View();
         }
 
         [HttpPost]
         public ActionResult Add(Customer c)
         {
-
             if (c != null)
             {
                 cust.InsertCustomer(c);
@@ -40,7 +38,6 @@ namespace InvoiceSystem.Controllers
 
         public ActionResult Delete(int id)
         {
-
             if (id > 0)
             {
                 cust.Delete(id);

@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8904694d59d346939ac0aaacf54d5ce9" Name="Diagram1">
-        <EntityTypeShape EntityType="invoicesystemModel.Comment" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="invoicesystemModel.Customer" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="invoicesystemModel.Invoice" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="invoicesystemModel.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="invoicesystemModel.FK_Comments_Invoice" ManuallyRouted="false" />
-        <AssociationConnector Association="invoicesystemModel.FK_Comments_User" ManuallyRouted="false" />
-        <AssociationConnector Association="invoicesystemModel.FK_Invoice_Customer" ManuallyRouted="false" />
+      <Diagram DiagramId="6202108061eb405d8786d6e5c2007323" Name="Diagram1">
+        <EntityTypeShape EntityType="invoicesystemModel.Comment" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="invoicesystemModel.Customer" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="invoicesystemModel.Invoice" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="invoicesystemModel.User" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="invoicesystemModel.FK_dbo_Invoices_dbo_Customers_Customer_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="invoicesystemModel.FK_Comments_Invoices" />
+        <AssociationConnector Association="invoicesystemModel.FK_Comments_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

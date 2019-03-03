@@ -10,51 +10,52 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date" Type="date" />
-          <Property Name="Comment" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Comment1" Type="nvarchar(max)" />
           <Property Name="Invoice_ID" Type="int" Nullable="false" />
           <Property Name="User_ID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Customer">
+        <EntityType Name="Customers">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Active" Type="bit" />
           <Property Name="Cust_No" Type="int" />
         </EntityType>
-        <EntityType Name="Invoice">
+        <EntityType Name="Invoices">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Cust_ID" Type="int" Nullable="false" />
-          <Property Name="CollectDate" Type="date" />
-          <Property Name="IssueDate" Type="date" />
+          <Property Name="CollectDate" Type="datetime" />
+          <Property Name="IssueDate" Type="datetime" />
           <Property Name="Amount" Type="int" />
           <Property Name="Invoice_No" Type="int" />
-          <Property Name="Act_CollectedDate" Type="date" />
+          <Property Name="Act_CollectedDate" Type="datetime" />
           <Property Name="Collected" Type="bit" />
           <Property Name="Suspended" Type="bit" />
+          <Property Name="Customer_ID" Type="int" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
           <Property Name="Active" Type="bit" />
-          <Property Name="IsAdmin" Type="bit" />
           <Property Name="User_No" Type="int" />
+          <Property Name="IsAdmin" Type="bit" />
         </EntityType>
-        <Association Name="FK_Comments_Invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+        <Association Name="FK_Comments_Invoices">
+          <End Role="Invoices" Type="Self.Invoices" Multiplicity="1" />
           <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Invoice">
+            <Principal Role="Invoices">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Comments">
@@ -62,11 +63,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Comments_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+        <Association Name="FK_Comments_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Comments">
@@ -74,34 +75,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Invoice_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+        <Association Name="FK_dbo_Invoices_dbo_Customers_Customer_ID">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Invoices" Type="Self.Invoices" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
+            <Principal Role="Customers">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Invoice">
-              <PropertyRef Name="Cust_ID" />
+            <Dependent Role="Invoices">
+              <PropertyRef Name="Customer_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="invoicesystemModelStoreContainer">
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Comments_Invoice" Association="Self.FK_Comments_Invoice">
-            <End Role="Invoice" EntitySet="Invoice" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comments_Invoices" Association="Self.FK_Comments_Invoices">
+            <End Role="Invoices" EntitySet="Invoices" />
             <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK_Comments_User" Association="Self.FK_Comments_User">
-            <End Role="User" EntitySet="User" />
+          <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
+            <End Role="Users" EntitySet="Users" />
             <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK_Invoice_Customer" Association="Self.FK_Invoice_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Invoice" EntitySet="Invoice" />
+          <AssociationSet Name="FK_dbo_Invoices_dbo_Customers_Customer_ID" Association="Self.FK_dbo_Invoices_dbo_Customers_Customer_ID">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Invoices" EntitySet="Invoices" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -112,23 +113,23 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="Comment1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Invoice_ID" Type="Int32" Nullable="false" />
           <Property Name="User_ID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Invoice" Relationship="Self.FK_Comments_Invoice" FromRole="Comments" ToRole="Invoice" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Comments_User" FromRole="Comments" ToRole="User" />
+          <NavigationProperty Name="Invoice" Relationship="invoicesystemModel.FK_Comments_Invoices" FromRole="Comment" ToRole="Invoice" />
+          <NavigationProperty Name="User" Relationship="invoicesystemModel.FK_Comments_Users" FromRole="Comment" ToRole="User" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" />
           <Property Name="Cust_No" Type="Int32" />
-          <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_Customer" FromRole="Customer" ToRole="Invoice" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK_dbo_Invoices_dbo_Customers_Customer_ID" FromRole="Customers" ToRole="Invoices" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -136,95 +137,96 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Cust_ID" Type="Int32" Nullable="false" />
-          <Property Name="CollectDate" Type="DateTime" Precision="0" />
-          <Property Name="IssueDate" Type="DateTime" Precision="0" />
+          <Property Name="CollectDate" Type="DateTime" Precision="3" />
+          <Property Name="IssueDate" Type="DateTime" Precision="3" />
           <Property Name="Amount" Type="Int32" />
           <Property Name="Invoice_No" Type="Int32" />
-          <Property Name="Act_CollectedDate" Type="DateTime" Precision="0" />
+          <Property Name="Act_CollectedDate" Type="DateTime" Precision="3" />
           <Property Name="Collected" Type="Boolean" />
           <Property Name="Suspended" Type="Boolean" />
-          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Invoice" FromRole="Invoice" ToRole="Comments" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Invoice_Customer" FromRole="Invoice" ToRole="Customer" />
+          <Property Name="Customer_ID" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_dbo_Invoices_dbo_Customers_Customer_ID" FromRole="Invoices" ToRole="Customers" />
+          <NavigationProperty Name="Comments" Relationship="invoicesystemModel.FK_Comments_Invoices" FromRole="Invoice" ToRole="Comment" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" />
           <Property Name="User_No" Type="Int32" />
-          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_User" FromRole="User" ToRole="Comments" />
           <Property Name="IsAdmin" Type="Boolean" />
+          <NavigationProperty Name="Comments" Relationship="invoicesystemModel.FK_Comments_Users" FromRole="User" ToRole="Comment" />
         </EntityType>
-        <Association Name="FK_Comments_Invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+        <Association Name="FK_dbo_Invoices_dbo_Customers_Customer_ID">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Invoices" Type="Self.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Invoice">
+            <Principal Role="Customers">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Comments">
-              <PropertyRef Name="Invoice_ID" />
+            <Dependent Role="Invoices">
+              <PropertyRef Name="Customer_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Comments_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Comments">
-              <PropertyRef Name="User_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Invoice_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Invoice">
-              <PropertyRef Name="Cust_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="invoicesystemEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="invoicesystemEntities4" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Invoices" EntityType="Self.Invoice" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_Comments_Invoice" Association="Self.FK_Comments_Invoice">
-            <End Role="Invoice" EntitySet="Invoices" />
-            <End Role="Comments" EntitySet="Comments" />
+          <AssociationSet Name="FK_dbo_Invoices_dbo_Customers_Customer_ID" Association="Self.FK_dbo_Invoices_dbo_Customers_Customer_ID">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Invoices" EntitySet="Invoices" />
           </AssociationSet>
-          <AssociationSet Name="FK_Comments_User" Association="Self.FK_Comments_User">
+          <AssociationSet Name="FK_Comments_Invoices" Association="invoicesystemModel.FK_Comments_Invoices">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Users" Association="invoicesystemModel.FK_Comments_Users">
             <End Role="User" EntitySet="Users" />
-            <End Role="Comments" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Invoice_Customer" Association="Self.FK_Invoice_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Comments_Invoices">
+          <End Type="invoicesystemModel.Invoice" Role="Invoice" Multiplicity="1" />
+          <End Type="invoicesystemModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="Invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Users">
+          <End Type="invoicesystemModel.User" Role="User" Multiplicity="1" />
+          <End Type="invoicesystemModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="invoicesystemModelStoreContainer" CdmEntityContainer="invoicesystemEntities">
+        <EntityContainerMapping StorageEntityContainer="invoicesystemModelStoreContainer" CdmEntityContainer="invoicesystemEntities4">
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="invoicesystemModel.Comment">
               <MappingFragment StoreEntitySet="Comments">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Comment1" ColumnName="Comment" />
+                <ScalarProperty Name="Comment1" ColumnName="Comment1" />
                 <ScalarProperty Name="Invoice_ID" ColumnName="Invoice_ID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
               </MappingFragment>
@@ -232,7 +234,7 @@
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="invoicesystemModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
+              <MappingFragment StoreEntitySet="Customers">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
@@ -242,7 +244,7 @@
           </EntitySetMapping>
           <EntitySetMapping Name="Invoices">
             <EntityTypeMapping TypeName="invoicesystemModel.Invoice">
-              <MappingFragment StoreEntitySet="Invoice">
+              <MappingFragment StoreEntitySet="Invoices">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Cust_ID" ColumnName="Cust_ID" />
                 <ScalarProperty Name="CollectDate" ColumnName="CollectDate" />
@@ -252,20 +254,21 @@
                 <ScalarProperty Name="Act_CollectedDate" ColumnName="Act_CollectedDate" />
                 <ScalarProperty Name="Collected" ColumnName="Collected" />
                 <ScalarProperty Name="Suspended" ColumnName="Suspended" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="invoicesystemModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="User_No" ColumnName="User_No" />
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+              <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
-                </MappingFragment>
+                <ScalarProperty Name="User_No" ColumnName="User_No" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+              </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
         </EntityContainerMapping>

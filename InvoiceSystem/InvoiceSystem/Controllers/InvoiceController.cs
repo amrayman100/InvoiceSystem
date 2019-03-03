@@ -67,7 +67,6 @@ namespace InvoiceSystem.Controllers
         [HttpPost]
         public ActionResult Add(Invoice invoice, int ss)
         {
-
             if (invoice != null)
             {
                 invoice.Cust_ID = ss;
@@ -79,7 +78,6 @@ namespace InvoiceSystem.Controllers
 
         public ActionResult Delete(int id)
         {
-
             if (id > 0)
             {
                 i.Delete(id);
@@ -87,11 +85,8 @@ namespace InvoiceSystem.Controllers
             }
             return RedirectToAction("Index");
         }
-
-
         public string SearchResult(string IssueFrom, string IssueTo, string ColFrom, string ColTo, string Customer)
         {
-
             DateTime IT = CreateDateTime(IssueTo);
             DateTime IF = CreateDateTime(IssueFrom);
             Customer c1 = new Customer { Cust_No = 1, Name = "elborg" };
@@ -102,42 +97,28 @@ namespace InvoiceSystem.Controllers
 
             var invoices2 = new List<Invoice>();
 
-
-            // DateTime CT = CreateDateTime(ColTo);
-            // DateTime CF = CreateDateTime(ColFrom);
-
             if (Customer == "0")
             {
                 foreach (var item in list1)
                 {
-
                     if (item.IssueDate >= IF && item.IssueDate <= IT)
                     {
 
                         invoices2.Add(item);
                     }
-
-
                 }
             }
-
             else
             {
                 foreach (var item in list1)
                 {
-
                     if (item.IssueDate >= IF && item.IssueDate <= IT && Customer == item.Customer.Name)
                     {
 
                         invoices2.Add(item);
                     }
-
-
                 }
-
             }
-
-
             //var a = Newtonsoft.Json.JsonConvert.SerializeObject(invoices2);
             var a = JsonConvert.SerializeObject(invoices2, Formatting.None,
                         new JsonSerializerSettings()
@@ -147,9 +128,6 @@ namespace InvoiceSystem.Controllers
 
             return a;
         }
-
-
-
         public DateTime CreateDateTime(string a)
         {
             int year = Convert.ToInt32((a.Split('-'))[0]);
@@ -182,8 +160,6 @@ namespace InvoiceSystem.Controllers
             }
             return View();
         }
-
-    
         public ActionResult DeleteComment(int id)
         {
 
@@ -194,8 +170,7 @@ namespace InvoiceSystem.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        public String addComment(string InvoiceId , String Comment)
+        public string addComment(string InvoiceId, string Comment)
         {
             string userid = Session["UserID"].ToString();
             Comment c = new Comment();
@@ -211,55 +186,36 @@ namespace InvoiceSystem.Controllers
 
             foreach (var item in comments)
             {
-                if(item.Invoice_ID == Convert.ToInt32(InvoiceId))
-                {
-                    comments2.Add(item);
-
-                }
-
-            }
-
-
-
-                var a = JsonConvert.SerializeObject(comments2, Formatting.None,
-                        new JsonSerializerSettings()
-                        {
-                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                        });
-
-            return a;
-
-          
-        }
-
-
-        public String fillTable(string InvoiceId)
-        {
-
-            var comments = comment.GetComments();
-
-            var comments2 = new List<Comment>();
-
-            foreach (var item in comments)
-            {
                 if (item.Invoice_ID == Convert.ToInt32(InvoiceId))
                 {
                     comments2.Add(item);
 
                 }
-
             }
-
-
-
             var a = JsonConvert.SerializeObject(comments2, Formatting.None,
                     new JsonSerializerSettings()
                     {
                         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                     });
-
             return a;
         }
-
+        public string fillTable(string InvoiceId)
+        {
+            var comments = comment.GetComments();
+            var comments2 = new List<Comment>();
+            foreach (var item in comments)
+            {
+                if (item.Invoice_ID == Convert.ToInt32(InvoiceId))
+                {
+                    comments2.Add(item);
+                }
+            }
+            var a = JsonConvert.SerializeObject(comments2, Formatting.None,
+                    new JsonSerializerSettings()
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    });
+            return a;
+        }
     }
 }

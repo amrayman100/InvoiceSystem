@@ -46,7 +46,6 @@ namespace Collection.DSL
         public void Delete(int id)
         {
             repo.DeleteCustomer(id);
-
         }
 
         public void UpdateCustomer(Customer customer)

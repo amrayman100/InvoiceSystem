@@ -16,22 +16,19 @@ namespace InvoiceSystem.Controllers
     {
         CustomerDSL cust = new CustomerDSL();
         public ActionResult Index()
-        {
-           
+        {          
             return View();
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
@@ -42,9 +39,7 @@ namespace InvoiceSystem.Controllers
             {
                new Invoice(),
                new Invoice()
-
             };
-
             InvoiceViewModel v = new InvoiceViewModel
             {
                 Invoices = invoices
@@ -52,23 +47,13 @@ namespace InvoiceSystem.Controllers
 
             return View(v);
         }
-
-       
-
         public ActionResult Reports()
         {
-           
-
             return View();
         }
-
         public ActionResult EditInvoice(int id)
         {
             return View(id);
         }
-
-
-
-
     }
 }

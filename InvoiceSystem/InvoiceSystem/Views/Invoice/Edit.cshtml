@@ -17,10 +17,8 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Edit Customer</h4>
+        <h4>Edit Invoice</h4>
         <hr />
-
-
 
         <div class="form-group">
             @Html.LabelFor(model => model.Invoice_No, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -30,12 +28,11 @@
             </div>
         </div>
 
-
         <div class="form-group">
             @Html.LabelFor(model => model.IssueDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IssueDate, new { htmlAttributes = new { @class = "datefield", type = "date" } })
-                @Html.ValidationMessageFor(model => model.IssueDate, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.IssueDate.Value.ToString("yyyy-MM-dd").Split(' ')[0], new { htmlAttributes = new {  type = "date" } })
+                @Html.ValidationMessageFor(model => model.IssueDate.Value.ToString("yyyy-MM-dd").Split(' ')[0], "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -59,8 +56,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CollectDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CollectDate, new { htmlAttributes = new { @class = "datefield", type = "date" } })
-                @Html.ValidationMessageFor(model => model.CollectDate, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CollectDate.Value.ToString("yyyy-MM-dd").Split(' ')[0], new { htmlAttributes = new { @class = "datefield", type = "date" } })
+                @Html.ValidationMessageFor(model => model.CollectDate.Value.ToString("yyyy-MM-dd").Split(' ')[0], "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -87,8 +84,6 @@
                 @Html.ValidationMessageFor(model => model.Suspended, "", new { @class = "text-danger" })
             </div>
         </div>
-
-
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
